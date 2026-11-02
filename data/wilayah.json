@@ -1,0 +1,222 @@
+{
+  "sumber": "BPS Provinsi Jawa Barat 2024",
+  "jumlah": 27,
+  "data": [
+    {
+      "code": "3201",
+      "name": "Kabupaten Bogor",
+      "type": "Kabupaten",
+      "poverty": 7.23,
+      "tpt": 7.99,
+      "ipm": 72.18
+    },
+    {
+      "code": "3202",
+      "name": "Kabupaten Sukabumi",
+      "type": "Kabupaten",
+      "poverty": 7.41,
+      "tpt": 7.34,
+      "ipm": 68.65
+    },
+    {
+      "code": "3203",
+      "name": "Kabupaten Cianjur",
+      "type": "Kabupaten",
+      "poverty": 10.36,
+      "tpt": 7.62,
+      "ipm": 67.24
+    },
+    {
+      "code": "3204",
+      "name": "Kabupaten Bandung",
+      "type": "Kabupaten",
+      "poverty": 6.43,
+      "tpt": 6.52,
+      "ipm": 74.43
+    },
+    {
+      "code": "3205",
+      "name": "Kabupaten Garut",
+      "type": "Kabupaten",
+      "poverty": 9.77,
+      "tpt": 7.28,
+      "ipm": 68.32
+    },
+    {
+      "code": "3206",
+      "name": "Kabupaten Tasikmalaya",
+      "type": "Kabupaten",
+      "poverty": 10.02,
+      "tpt": 6.18,
+      "ipm": 67.89
+    },
+    {
+      "code": "3207",
+      "name": "Kabupaten Ciamis",
+      "type": "Kabupaten",
+      "poverty": 7.55,
+      "tpt": 5.61,
+      "ipm": 71.98
+    },
+    {
+      "code": "3208",
+      "name": "Kabupaten Kuningan",
+      "type": "Kabupaten",
+      "poverty": 12.12,
+      "tpt": 8.92,
+      "ipm": 70.82
+    },
+    {
+      "code": "3209",
+      "name": "Kabupaten Cirebon",
+      "type": "Kabupaten",
+      "poverty": 11.2,
+      "tpt": 7.85,
+      "ipm": 70.52
+    },
+    {
+      "code": "3210",
+      "name": "Kabupaten Majalengka",
+      "type": "Kabupaten",
+      "poverty": 11.09,
+      "tpt": 4.88,
+      "ipm": 69.11
+    },
+    {
+      "code": "3211",
+      "name": "Kabupaten Sumedang",
+      "type": "Kabupaten",
+      "poverty": 9.37,
+      "tpt": 6.45,
+      "ipm": 73.19
+    },
+    {
+      "code": "3212",
+      "name": "Kabupaten Indramayu",
+      "type": "Kabupaten",
+      "poverty": 11.93,
+      "tpt": 6.72,
+      "ipm": 69.34
+    },
+    {
+      "code": "3213",
+      "name": "Kabupaten Subang",
+      "type": "Kabupaten",
+      "poverty": 9.39,
+      "tpt": 7.48,
+      "ipm": 70.73
+    },
+    {
+      "code": "3214",
+      "name": "Kabupaten Purwakarta",
+      "type": "Kabupaten",
+      "poverty": 7.95,
+      "tpt": 7.71,
+      "ipm": 72.48
+    },
+    {
+      "code": "3215",
+      "name": "Kabupaten Karawang",
+      "type": "Kabupaten",
+      "poverty": 7.87,
+      "tpt": 8.89,
+      "ipm": 72.64
+    },
+    {
+      "code": "3216",
+      "name": "Kabupaten Bekasi",
+      "type": "Kabupaten",
+      "poverty": 5.09,
+      "tpt": 8.87,
+      "ipm": 75.98
+    },
+    {
+      "code": "3217",
+      "name": "Kabupaten Bandung Barat",
+      "type": "Kabupaten",
+      "poverty": 10.19,
+      "tpt": 7.98,
+      "ipm": 70.22
+    },
+    {
+      "code": "3218",
+      "name": "Kabupaten Pangandaran",
+      "type": "Kabupaten",
+      "poverty": 8.83,
+      "tpt": 4.98,
+      "ipm": 69.87
+    },
+    {
+      "code": "3271",
+      "name": "Kota Bogor",
+      "type": "Kota",
+      "poverty": 6.68,
+      "tpt": 8.04,
+      "ipm": 78.43
+    },
+    {
+      "code": "3272",
+      "name": "Kota Sukabumi",
+      "type": "Kota",
+      "poverty": 7.37,
+      "tpt": 7.91,
+      "ipm": 76.22
+    },
+    {
+      "code": "3273",
+      "name": "Kota Bandung",
+      "type": "Kota",
+      "poverty": 3.86,
+      "tpt": 7.42,
+      "ipm": 83.14
+    },
+    {
+      "code": "3274",
+      "name": "Kota Cirebon",
+      "type": "Kota",
+      "poverty": 9.15,
+      "tpt": 7.64,
+      "ipm": 76.54
+    },
+    {
+      "code": "3275",
+      "name": "Kota Bekasi",
+      "type": "Kota",
+      "poverty": 4.02,
+      "tpt": 7.9,
+      "ipm": 83.06
+    },
+    {
+      "code": "3276",
+      "name": "Kota Depok",
+      "type": "Kota",
+      "poverty": 2.34,
+      "tpt": 6.77,
+      "ipm": 82.53
+    },
+    {
+      "code": "3277",
+      "name": "Kota Cimahi",
+      "type": "Kota",
+      "poverty": 4.98,
+      "tpt": 8.52,
+      "ipm": 79.52
+    },
+    {
+      "code": "3278",
+      "name": "Kota Tasikmalaya",
+      "type": "Kota",
+      "poverty": 11.53,
+      "tpt": 6.55,
+      "ipm": 74.87
+    },
+    {
+      "code": "3279",
+      "name": "Kota Banjar",
+      "type": "Kota",
+      "poverty": 6.71,
+      "tpt": 5.82,
+      "ipm": 73.49
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "defaultWeights": { "C1": 0.40, "C2": 0.30, "C3": 0.30 },
+  "presets": {
+    "equal":            { "C1": 0.34, "C2": 0.33, "C3": 0.33 },
+    "poverty_focus":    { "C1": 0.50, "C2": 0.25, "C3": 0.25 },
+    "balanced_analyst": { "C1": 0.40, "C2": 0.30, "C3": 0.30 }
+  },
+  "kategori": [
+    { "maxRank": 5,    "label": "Prioritas Sangat Tinggi" },
+    { "maxRank": 12,   "label": "Prioritas Tinggi" },
+    { "maxRank": 20,   "label": "Prioritas Sedang" },
+    { "maxRank": null, "label": "Prioritas Rendah" }
+  ],
+  "pages": {
+    "dashboard":   { "title": "Dashboard Prioritas Kemiskinan",        "breadcrumb": "Dashboard Analytics" },
+    "regions":     { "title": "Master Data 27 Kabupaten / Kota",       "breadcrumb": "Data Kabupaten / Kota" },
+    "import":      { "title": "Impor & Validasi Dataset BPS",          "breadcrumb": "Import Dataset BPS" },
+    "weights":     { "title": "Pengaturan Kriteria & Bobot SAW",       "breadcrumb": "Kriteria & Bobot" },
+    "calculation": { "title": "Rincian Transparansi Matriks SAW",      "breadcrumb": "Rincian Perhitungan" },
+    "results":     { "title": "Hasil Pemeringkatan & Rekomendasi",     "breadcrumb": "Hasil Perangkingan" },
+    "history":     { "title": "Riwayat Audit Sesi Perhitungan",        "breadcrumb": "Riwayat Perhitungan" },
+    "source":      { "title": "Dokumentasi Sumber Data BPS",           "breadcrumb": "Sumber Data BPS" }
+  }
+}

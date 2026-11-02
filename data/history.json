@@ -1,0 +1,10 @@
+[
+  {
+    "id": 1,
+    "time": "2024-11-02 21:00",
+    "dataset": "BPS Jawa Barat 2024 (Seri Resmi)",
+    "weights": "C1: 40%, C2: 30%, C3: 30%",
+    "count": 27,
+    "notes": "Inisialisasi Master Ground Truth"
+  }
+]
