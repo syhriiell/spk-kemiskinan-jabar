@@ -1440,8 +1440,8 @@
 
       // Pemetaan indeks kolom umum
       const colIdx = {
-        code: headers.findIndex(h => h.includes('kode_kabupaten') || h.includes('code') || h.includes('kode')),
-        name: headers.findIndex(h => h.includes('nama_kabupaten') || h.includes('nama_wilayah') || h.includes('name') || h.includes('wilayah') || h.includes('kabupaten')),
+        code: headers.findIndex(h => (h.includes('kode') && (h.includes('kabupaten') || h.includes('kota') || h.includes('wilayah') || h.includes('daerah'))) || h === 'kode' || h === 'code' || h === 'region_code'),
+        name: headers.findIndex(h => (h.includes('nama') && (h.includes('kabupaten') || h.includes('kota') || h.includes('wilayah') || h.includes('daerah'))) || h === 'nama' || h === 'name' || h === 'region_name' || h === 'wilayah'),
         year: headers.findIndex(h => h.includes('tahun') || h.includes('year') || h.includes('periode')),
         p0: headers.findIndex(h => h.includes('persentase_penduduk_miskin') || h.includes('poverty') || h.includes('p0') || (h.includes('miskin') && !h.includes('kedalaman') && !h.includes('keparahan'))),
         p1: headers.findIndex(h => h.includes('indeks_kedalaman') || h.includes('kedalaman') || h.includes('depth') || h.includes('p1')),
@@ -1464,7 +1464,6 @@
           if (y && !isNaN(parseInt(y, 10))) foundYears.push(parseInt(y, 10));
         }
         if (foundYears.length > 0) {
-          // Cari tahun 2024 jika ada, atau tahun paling mutakhir
           if (foundYears.includes(2024)) {
             targetYear = '2024';
           } else {
@@ -1494,12 +1493,14 @@
             if (rowYear !== targetYear) continue;
           }
 
+          const rawCode = colIdx.code !== -1 ? String(row[colIdx.code] || '').trim() : '';
           const rawName = String(row[colIdx.name] || '').trim();
           if (!rawName || rawName.toLowerCase().includes('provinsi') || rawName.toLowerCase() === 'jawa barat') continue;
 
           // Normalisasi nama wilayah untuk pencocokan 27 Kabupaten/Kota
           const cleanName = rawName.toLowerCase().replace(/^(kabupaten|kota)\s+/i, '').trim();
           const target = currentData.find(d => {
+            if (rawCode && d.code === rawCode) return true;
             const currentClean = d.name.toLowerCase().replace(/^(kabupaten|kota)\s+/i, '').trim();
             return currentClean === cleanName || d.name.toLowerCase() === rawName.toLowerCase();
           });
