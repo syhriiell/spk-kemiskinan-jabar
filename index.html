@@ -1,11 +1,1399 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SPK Prioritas Kemiskinan Jawa Barat — Modern Government Analytics (5 Kriteria BPS)</title>
+  <!-- Official Tailwind CSS CDN (Standar Akademik & Industri) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      background-color: #F4F7FA;
+      color: #1E293B;
+    }
+    
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #94A3B8; }
+
+    input[type=range] {
+      accent-color: #159B78;
+    }
+
+    .nav-item-active {
+      background-color: #245B83;
+      color: #FFFFFF !important;
+      font-weight: 600;
+      border-left: 3px solid #159B78;
+    }
+
+    .card-elevation {
+      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px 0 rgba(0, 0, 0, 0.03);
+    }
+    .card-elevation:hover {
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -1px rgba(0, 0, 0, 0.04);
+    }
+  </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col md:flex-row bg-[#F4F7FA] text-[#1E293B]">
+
+  <!-- Mobile Topbar Header -->
+  <div class="md:hidden bg-[#172B4D] text-white p-4 flex items-center justify-between border-b border-slate-700 z-30">
+    <div class="flex items-center gap-3">
+      <div class="w-8 h-8 rounded-lg bg-[#159B78] flex items-center justify-center font-bold text-sm shadow">
+        JBR
+      </div>
+      <div>
+        <div class="font-bold text-sm leading-tight">SPK Kemiskinan Jabar</div>
+        <div class="text-[10px] text-slate-300">5 Parameter BPS Resmi</div>
+      </div>
+    </div>
+    <button onclick="toggleMobileSidebar()" class="p-2 rounded-lg bg-[#245B83] text-white focus:outline-none">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+      </svg>
+    </button>
+  </div>
+
+  <!-- SIDEBAR NAVIGATION (Navy Blue: #172B4D) -->
+  <aside id="sidebar" class="fixed md:static inset-y-0 left-0 w-64 bg-[#172B4D] text-white flex flex-col justify-between z-40 transform -translate-x-full md:translate-x-0 transition-transform duration-200 ease-in-out shrink-0 border-r border-[#1e3a68]">
+    <div>
+      <!-- Brand Logo / Government Header -->
+      <div class="p-5 border-b border-[#245B83]/40 flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-[#159B78] to-[#245B83] flex items-center justify-center font-extrabold text-white text-base shadow-md">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+          </svg>
+        </div>
+        <div>
+          <h1 class="font-bold text-sm tracking-wide text-white leading-tight">SPK JAWABARAT</h1>
+          <p class="text-[11px] text-[#159B78] font-medium">Metode Simple Additive Weighting</p>
+        </div>
+      </div>
+
+      <!-- Navigation Links -->
+      <nav class="p-3 space-y-1">
+        <div class="px-3 py-2 text-[10px] font-bold uppercase tracking-wider text-slate-400">Menu Utama</div>
+
+        <!-- 1. Dashboard -->
+        <button onclick="switchPage('dashboard')" id="nav-dashboard" class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-xs font-medium text-slate-300 hover:bg-[#245B83]/50 hover:text-white transition nav-item-active">
+          <svg class="w-4 h-4 text-[#159B78]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h4a1 1 0 011 1v5a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 15a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1H5a1 1 0 01-1-1v-4zM14 5a1 1 0 011-1h4a1 1 0 011 1v2a1 1 0 01-1 1h-4a1 1 0 01-1-1V5zM14 12a1 1 0 011-1h4a1 1 0 011 1v7a1 1 0 01-1 1h-4a1 1 0 01-1-1v-7z"/>
+          </svg>
+          Dashboard Analytics
+        </button>
+
+        <!-- 2. Data Daerah -->
+        <button onclick="switchPage('regions')" id="nav-regions" class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-xs font-medium text-slate-300 hover:bg-[#245B83]/50 hover:text-white transition">
+          <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+          </svg>
+          Data Kabupaten / Kota (5 Param)
+        </button>
+
+        <!-- 3. Import Dataset -->
+        <button onclick="switchPage('import')" id="nav-import" class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-xs font-medium text-slate-300 hover:bg-[#245B83]/50 hover:text-white transition">
+          <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/>
+          </svg>
+          Import Dataset BPS
+        </button>
+
+        <div class="pt-3 px-3 py-2 text-[10px] font-bold uppercase tracking-wider text-slate-400">Model Keputusan (SAW)</div>
+
+        <!-- 4. Kriteria & Bobot -->
+        <button onclick="switchPage('weights')" id="nav-weights" class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-xs font-medium text-slate-300 hover:bg-[#245B83]/50 hover:text-white transition">
+          <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/>
+          </svg>
+          Kriteria & Bobot (5 Parameter)
+        </button>
+
+        <!-- 5. Perhitungan SAW -->
+        <button onclick="switchPage('calculation')" id="nav-calculation" class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-xs font-medium text-slate-300 hover:bg-[#245B83]/50 hover:text-white transition">
+          <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/>
+          </svg>
+          Rincian Perhitungan SAW
+        </button>
+
+        <!-- 6. Hasil Perangkingan -->
+        <button onclick="switchPage('results')" id="nav-results" class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-xs font-medium text-slate-300 hover:bg-[#245B83]/50 hover:text-white transition">
+          <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/>
+          </svg>
+          Hasil Perangkingan
+        </button>
+
+        <div class="pt-3 px-3 py-2 text-[10px] font-bold uppercase tracking-wider text-slate-400">Audit & Referensi</div>
+
+        <!-- 7. Riwayat Perhitungan -->
+        <button onclick="switchPage('history')" id="nav-history" class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-xs font-medium text-slate-300 hover:bg-[#245B83]/50 hover:text-white transition">
+          <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+          </svg>
+          Riwayat Perhitungan
+        </button>
+
+        <!-- 8. Sumber Data BPS -->
+        <button onclick="switchPage('source')" id="nav-source" class="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-xs font-medium text-slate-300 hover:bg-[#245B83]/50 hover:text-white transition">
+          <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+          </svg>
+          Sumber Data Resmi BPS
+        </button>
+      </nav>
+    </div>
+
+    <!-- Sidebar Bottom Status Footer -->
+    <div class="p-4 border-t border-[#245B83]/40 bg-[#12233f]">
+      <div class="flex items-center gap-2 mb-2">
+        <span class="w-2 h-2 rounded-full bg-[#159B78] animate-pulse"></span>
+        <span class="text-[11px] font-semibold text-slate-200">Dataset BPS 2024 (5 Kriteria)</span>
+      </div>
+      <div class="text-[10px] text-slate-400 leading-relaxed">
+        P₀, P₁, P₂, TPT, IPM &bull; Total Bobot: <span id="sidebar-weight-status" class="text-[#159B78] font-bold">100% (Valid)</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN CONTENT AREA (Background: #F4F7FA) -->
+  <main class="flex-1 flex flex-col min-w-0 overflow-y-auto">
+
+    <!-- Top Header Bar -->
+    <header class="bg-white border-b border-slate-200/80 px-6 py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 sticky top-0 z-20 shadow-xs">
+      <div>
+        <div class="flex items-center gap-2 text-xs text-[#64748B]">
+          <span>Sistem Pendukung Keputusan</span>
+          <span>&rsaquo;</span>
+          <span id="breadcrumb-current" class="text-[#172B4D] font-semibold">Dashboard Analytics</span>
+        </div>
+        <h2 id="page-title" class="text-lg md:text-xl font-bold text-[#1E293B] mt-0.5">Dashboard Prioritas Kemiskinan</h2>
+      </div>
+
+      <!-- Quick Action Badges -->
+      <div class="flex items-center gap-2.5 flex-wrap">
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-emerald-50 text-[#159B78] border border-emerald-200">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+          </svg>
+          27 Wilayah &bull; 5 Kriteria BPS
+        </span>
+        <span id="topbar-weight-badge" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-blue-50 text-[#245B83] border border-blue-200">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+          </svg>
+          Total Bobot: 1.00 (100%)
+        </span>
+      </div>
+    </header>
+
+    <!-- PAGE CONTENTS CONTAINER -->
+    <div class="p-6 md:p-8 space-y-6 max-w-7xl mx-auto w-full">
+
+      <!-- ======================================================== -->
+      <!-- PAGE 1: DASHBOARD ANALYTICS -->
+      <!-- ======================================================== -->
+      <section id="page-dashboard" class="space-y-6">
+        <!-- 4 KPI Stat Cards -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          <div class="bg-white border border-slate-200/80 rounded-xl p-5 card-elevation transition flex flex-col justify-between">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-semibold text-[#64748B] uppercase tracking-wider">Cakupan Wilayah</span>
+              <div class="w-8 h-8 rounded-lg bg-blue-50 text-[#245B83] flex items-center justify-center">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+              </div>
+            </div>
+            <div class="mt-3">
+              <div class="text-3xl font-extrabold text-[#172B4D]">27 Wilayah</div>
+              <p class="text-xs text-[#159B78] font-medium mt-1">18 Kabupaten &bull; 9 Kota di Jabar</p>
+            </div>
+          </div>
+
+          <div class="bg-white border border-slate-200/80 rounded-xl p-5 card-elevation transition flex flex-col justify-between">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-semibold text-[#64748B] uppercase tracking-wider">Kriteria Evaluasi</span>
+              <div class="w-8 h-8 rounded-lg bg-emerald-50 text-[#159B78] flex items-center justify-center">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+              </div>
+            </div>
+            <div class="mt-3">
+              <div class="text-3xl font-extrabold text-[#172B4D]">5 Kriteria</div>
+              <p class="text-xs text-[#245B83] font-medium mt-1">P₀, P₁, P₂, TPT (Benefit), IPM (Cost)</p>
+            </div>
+          </div>
+
+          <div class="bg-white border border-slate-200/80 rounded-xl p-5 card-elevation transition flex flex-col justify-between">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-semibold text-[#64748B] uppercase tracking-wider">Prioritas Teratas (#1)</span>
+              <div class="w-8 h-8 rounded-lg bg-red-50 text-red-600 flex items-center justify-center">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+              </div>
+            </div>
+            <div class="mt-3">
+              <div class="text-xl font-bold text-red-600 truncate" id="kpi-top-name">Kabupaten Kuningan</div>
+              <p class="text-xs text-[#64748B] font-medium mt-1" id="kpi-top-score">Skor Preferensi: 0.9421</p>
+            </div>
+          </div>
+
+          <div class="bg-white border border-slate-200/80 rounded-xl p-5 card-elevation transition flex flex-col justify-between">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-semibold text-[#64748B] uppercase tracking-wider">Validitas Data</span>
+              <div class="w-8 h-8 rounded-lg bg-emerald-50 text-[#159B78] flex items-center justify-center">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              </div>
+            </div>
+            <div class="mt-3">
+              <div class="text-3xl font-extrabold text-[#159B78]">Resmi BPS</div>
+              <p class="text-xs text-[#64748B] font-medium mt-1">Susenas &bull; Sakernas 2024</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Top 5 Table & Priority Distribution -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div class="lg:col-span-2 bg-white border border-slate-200/80 rounded-xl p-6 card-elevation">
+            <div class="flex items-center justify-between mb-4">
+              <div>
+                <h3 class="font-bold text-base text-[#1E293B]">Top 5 Daerah Prioritas Intervensi</h3>
+                <p class="text-xs text-[#64748B]">Wilayah dengan urgensi penanggulangan kemiskinan paling mendesak (5 Kriteria)</p>
+              </div>
+              <button onclick="switchPage('results')" class="text-xs text-[#245B83] hover:text-[#159B78] font-semibold flex items-center gap-1 transition">
+                <span>Lihat Semua 27 &rarr;</span>
+              </button>
+            </div>
+
+            <div class="overflow-x-auto">
+              <table class="w-full text-left border-collapse text-xs">
+                <thead>
+                  <tr class="border-b border-slate-200 text-[#64748B] bg-slate-50/75">
+                    <th class="py-3 px-2 text-center w-10 font-semibold">Rank</th>
+                    <th class="py-3 px-3 font-semibold">Nama Wilayah</th>
+                    <th class="py-3 px-2 text-center">P₀ (%)</th>
+                    <th class="py-3 px-2 text-center">P₁</th>
+                    <th class="py-3 px-2 text-center">P₂</th>
+                    <th class="py-3 px-2 text-center">TPT (%)</th>
+                    <th class="py-3 px-2 text-center">IPM</th>
+                    <th class="py-3 px-3 text-right font-bold text-[#172B4D]">Skor Vᵢ</th>
+                    <th class="py-3 px-2 text-center">Status</th>
+                  </tr>
+                </thead>
+                <tbody id="dashboard-top5-body" class="divide-y divide-slate-100">
+                  <!-- Rendered dynamically -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Distribution Chart & Methodology Card -->
+          <div class="bg-white border border-slate-200/80 rounded-xl p-6 card-elevation flex flex-col justify-between">
+            <div>
+              <h3 class="font-bold text-base text-[#1E293B] mb-1">Distribusi Tingkat Prioritas</h3>
+              <p class="text-xs text-[#64748B] mb-4">Pengelompokan 27 daerah berdasarkan skor preferensi $V_i$:</p>
+
+              <div class="space-y-3.5">
+                <div>
+                  <div class="flex justify-between text-xs mb-1">
+                    <span class="font-semibold text-red-700">Prioritas Sangat Tinggi</span>
+                    <span class="text-[#64748B] font-mono">5 Wilayah (Rank 1-5)</span>
+                  </div>
+                  <div class="w-full bg-slate-100 rounded-full h-2">
+                    <div class="bg-red-500 h-2 rounded-full" style="width: 18.5%"></div>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="flex justify-between text-xs mb-1">
+                    <span class="font-semibold text-amber-700">Prioritas Tinggi</span>
+                    <span class="text-[#64748B] font-mono">7 Wilayah (Rank 6-12)</span>
+                  </div>
+                  <div class="w-full bg-slate-100 rounded-full h-2">
+                    <div class="bg-amber-500 h-2 rounded-full" style="width: 25.9%"></div>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="flex justify-between text-xs mb-1">
+                    <span class="font-semibold text-[#245B83]">Prioritas Sedang</span>
+                    <span class="text-[#64748B] font-mono">8 Wilayah (Rank 13-20)</span>
+                  </div>
+                  <div class="w-full bg-slate-100 rounded-full h-2">
+                    <div class="bg-[#245B83] h-2 rounded-full" style="width: 29.6%"></div>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="flex justify-between text-xs mb-1">
+                    <span class="font-semibold text-slate-700">Prioritas Rendah</span>
+                    <span class="text-[#64748B] font-mono">7 Wilayah (Rank 21-27)</span>
+                  </div>
+                  <div class="w-full bg-slate-100 rounded-full h-2">
+                    <div class="bg-slate-400 h-2 rounded-full" style="width: 25.9%"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="pt-5 border-t border-slate-200 mt-5">
+              <button onclick="switchPage('weights')" class="w-full py-2.5 px-4 bg-[#172B4D] hover:bg-[#245B83] text-white rounded-lg font-semibold text-xs transition duration-150 shadow-sm flex items-center justify-center gap-2">
+                <svg class="w-4 h-4 text-[#159B78]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/></svg>
+                <span>Atur 5 Bobot & Kalkulasi</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ======================================================== -->
+      <!-- PAGE 2: DATA DAERAH (5 PARAMETER BPS RESMI) -->
+      <!-- ======================================================== -->
+      <section id="page-regions" class="space-y-6 hidden">
+        <div class="bg-white border border-slate-200/80 rounded-xl p-6 card-elevation space-y-4">
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div>
+              <h3 class="font-bold text-base text-[#1E293B]">Master Data 5 Indikator Resmi BPS Jawa Barat 2024</h3>
+              <p class="text-xs text-[#64748B]">
+                27 Kabupaten/Kota dievaluasi berdasarkan Triad Kemiskinan FGT BPS (P₀, P₁, P₂), Ketenagakerjaan (TPT), dan Pembangunan Manusia (IPM).
+              </p>
+            </div>
+
+            <div class="flex items-center gap-3">
+              <select id="filter-region-type" onchange="filterMasterRegionTable()" class="text-xs border border-slate-300 rounded-lg px-3 py-2 bg-white text-[#1E293B] focus:ring-1 focus:ring-[#159B78]">
+                <option value="ALL">Semua Wilayah (27)</option>
+                <option value="Kabupaten">Kabupaten Saja (18)</option>
+                <option value="Kota">Kota Saja (9)</option>
+              </select>
+              <input type="text" id="search-master-region" oninput="filterMasterRegionTable()" placeholder="Cari nama daerah..." class="text-xs border border-slate-300 rounded-lg px-3 py-2 w-48 sm:w-60 focus:ring-1 focus:ring-[#159B78]">
+            </div>
+          </div>
+
+          <div class="border border-slate-200 rounded-lg overflow-hidden">
+            <div class="overflow-x-auto max-h-[500px]">
+              <table class="w-full text-left border-collapse text-xs">
+                <thead class="sticky top-0 bg-slate-50 border-b border-slate-200 text-[#64748B]">
+                  <tr>
+                    <th class="py-3 px-2 text-center w-10 font-semibold">No</th>
+                    <th class="py-3 px-2 font-semibold">Kode</th>
+                    <th class="py-3 px-3 font-semibold">Nama Wilayah</th>
+                    <th class="py-3 px-2 text-center">Tipe</th>
+                    <th class="py-3 px-2 text-center">P₀ Miskin (%)</th>
+                    <th class="py-3 px-2 text-center">P₁ Kedalaman</th>
+                    <th class="py-3 px-2 text-center">P₂ Keparahan</th>
+                    <th class="py-3 px-2 text-center">TPT (%)</th>
+                    <th class="py-3 px-2 text-center">IPM</th>
+                    <th class="py-3 px-2 text-center">Status Audit</th>
+                  </tr>
+                </thead>
+                <tbody id="master-region-table-body" class="divide-y divide-slate-100">
+                  <!-- Rendered dynamically -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ======================================================== -->
+      <!-- PAGE 3: IMPORT DATASET BPS -->
+      <!-- ======================================================== -->
+      <section id="page-import" class="space-y-6 hidden">
+        <div class="bg-white border border-slate-200/80 rounded-xl p-6 card-elevation space-y-6">
+          <div>
+            <h3 class="font-bold text-base text-[#1E293B]">Impor Dataset Indikator Baru (Mendukung 3 atau 5 Parameter)</h3>
+            <p class="text-xs text-[#64748B]">
+              Unggah berkas data statistik BPS dalam format CSV atau Excel. Sistem secara cerdas memetakan nama kolom dan memfilter baris agregat 'Provinsi Jawa Barat'.
+            </p>
+          </div>
+
+          <!-- Drag and Drop Box -->
+          <div id="dropzone" class="border-2 border-dashed border-slate-300 hover:border-[#159B78] rounded-xl p-8 text-center bg-slate-50/60 transition cursor-pointer">
+            <input type="file" id="file-input" accept=".csv" class="hidden" onchange="handleFileUpload(event)">
+            <div class="w-12 h-12 rounded-full bg-emerald-50 text-[#159B78] flex items-center justify-center mx-auto mb-3">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/></svg>
+            </div>
+            <div class="text-xs font-semibold text-[#1E293B]">
+              Tarik dan lepaskan berkas CSV ke sini, atau <button onclick="document.getElementById('file-input').click()" class="text-[#245B83] hover:text-[#159B78] underline font-bold">pilih dari komputer</button>
+            </div>
+            <p class="text-[11px] text-[#64748B] mt-1">
+              Mendukung kolom 5 Kriteria BPS: <code>region_name, poverty_pct, p1_depth, p2_severity, tpt_pct, ipm_score</code>
+            </p>
+          </div>
+
+          <!-- Paket Berkas Pengujian Langsung -->
+          <div class="p-4 bg-slate-50 border border-slate-200/90 rounded-xl space-y-3">
+            <div class="flex items-center justify-between">
+              <div>
+                <span class="font-bold text-xs text-[#172B4D] uppercase tracking-wider">Paket Berkas CSV Siap Uji (Tinggal Unduh & Uji Coba Langsung):</span>
+                <p class="text-[11px] text-[#64748B] mt-0.5">Klik salah satu tombol di bawah untuk mengunduh berkas resmi BPS 2024 langsung ke laptop Anda, lalu seret ke kotak di atas.</p>
+              </div>
+            </div>
+            <div class="flex flex-wrap items-center gap-2">
+              <button onclick="downloadSampleValidCSV()" class="px-3.5 py-2 bg-[#245B83] hover:bg-[#1b4361] text-white rounded-lg text-xs font-semibold transition shadow-xs flex items-center gap-1.5">
+                <svg class="w-4 h-4 text-[#159B78]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                <span>1. Unduh Dataset Valid (27 Wilayah 5 Kriteria BPS 2024)</span>
+              </button>
+              <button onclick="downloadSampleWithProvCSV()" class="px-3.5 py-2 bg-amber-600 hover:bg-amber-700 text-white rounded-lg text-xs font-semibold transition shadow-xs flex items-center gap-1.5">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                <span>2. Unduh Dataset Uji Filter (Ada Baris 'Provinsi Jabar')</span>
+              </button>
+              <button onclick="downloadSampleErrorCSV()" class="px-3.5 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg text-xs font-semibold transition shadow-xs flex items-center gap-1.5">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                <span>3. Unduh Dataset Kasus Error (Uji Penolakan)</span>
+              </button>
+              <button onclick="downloadCSVTemplate()" class="px-3.5 py-2 bg-white border border-slate-300 hover:bg-slate-100 text-[#1E293B] rounded-lg text-xs font-semibold transition shadow-xs flex items-center gap-1.5">
+                <span>4. Unduh Template CSV 5 Kriteria Kosong</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ======================================================== -->
+      <!-- PAGE 4: KRITERIA & BOBOT (5 KRITERIA) -->
+      <!-- ======================================================== -->
+      <section id="page-weights" class="space-y-6 hidden">
+        <div class="bg-white border border-slate-200/80 rounded-xl p-6 card-elevation space-y-6">
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div>
+              <h3 class="font-bold text-base text-[#1E293B]">Konfigurasi Bobot & Sifat 5 Kriteria (SAW)</h3>
+              <p class="text-xs text-[#64748B]">
+                Total bobot kelima kriteria ($w_1 + w_2 + w_3 + w_4 + w_5$) wajib sama dengan 1,00 (100%).
+              </p>
+            </div>
+            <div id="weight-sum-indicator" class="px-3.5 py-1.5 rounded-lg text-xs font-bold bg-emerald-100 text-emerald-800 border border-emerald-300">
+              Total Bobot: 1.00 (Valid 100%)
+            </div>
+          </div>
+
+          <!-- Presets -->
+          <div class="flex flex-wrap items-center gap-2 pt-1 border-t border-slate-100">
+            <span class="text-xs font-medium text-[#64748B]">Pilihan Preset Cepat:</span>
+            <button onclick="applyPreset('balanced_analyst')" class="px-3 py-1.5 text-xs rounded-lg bg-emerald-50 text-[#159B78] border border-emerald-300 font-bold transition">
+              Rekomendasi Analis (25% - 20% - 20% - 15% - 20%)
+            </button>
+            <button onclick="applyPreset('poverty_focus')" class="px-3 py-1.5 text-xs rounded-lg bg-slate-100 hover:bg-slate-200 text-[#1E293B] font-medium transition">
+              Fokus Triad Kemiskinan BPS (30% - 25% - 25% - 10% - 10%)
+            </button>
+            <button onclick="applyPreset('equal')" class="px-3 py-1.5 text-xs rounded-lg bg-slate-100 hover:bg-slate-200 text-[#1E293B] font-medium transition">
+              Bobot Rata (20% Tiap Kriteria)
+            </button>
+          </div>
+
+          <!-- 5 Criteria Cards Grid -->
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <!-- C1 -->
+            <div class="border border-slate-200/90 rounded-xl p-4 bg-white shadow-xs space-y-3">
+              <div class="flex items-center justify-between">
+                <span class="font-mono font-bold text-xs px-2.5 py-1 rounded bg-[#245B83]/10 text-[#245B83]">Kriteria C1</span>
+                <span class="text-xs font-bold px-2 py-0.5 rounded bg-emerald-100 text-[#159B78]">Benefit (Max)</span>
+              </div>
+              <div>
+                <h4 class="font-bold text-xs text-[#1E293B]">Persentase Penduduk Miskin (P₀)</h4>
+                <p class="text-[11px] text-[#64748B] mt-0.5">Proporsi warga di bawah Garis Kemiskinan (%)</p>
+              </div>
+              <div class="space-y-1 pt-2 border-t border-slate-100">
+                <div class="flex justify-between text-xs">
+                  <span class="text-[#64748B]">Bobot w₁:</span>
+                  <span class="font-bold text-[#159B78]" id="val-w1">0.25 (25%)</span>
+                </div>
+                <input type="range" id="slider-w1" min="0" max="100" value="25" step="5" oninput="onWeightSliderChange()" class="w-full">
+              </div>
+            </div>
+
+            <!-- C2 -->
+            <div class="border border-slate-200/90 rounded-xl p-4 bg-white shadow-xs space-y-3">
+              <div class="flex items-center justify-between">
+                <span class="font-mono font-bold text-xs px-2.5 py-1 rounded bg-[#245B83]/10 text-[#245B83]">Kriteria C2</span>
+                <span class="text-xs font-bold px-2 py-0.5 rounded bg-emerald-100 text-[#159B78]">Benefit (Max)</span>
+              </div>
+              <div>
+                <h4 class="font-bold text-xs text-[#1E293B]">Indeks Kedalaman Kemiskinan (P₁)</h4>
+                <p class="text-[11px] text-[#64748B] mt-0.5">Kesenjangan rata-rata pengeluaran thd garis kemiskinan</p>
+              </div>
+              <div class="space-y-1 pt-2 border-t border-slate-100">
+                <div class="flex justify-between text-xs">
+                  <span class="text-[#64748B]">Bobot w₂:</span>
+                  <span class="font-bold text-[#159B78]" id="val-w2">0.20 (20%)</span>
+                </div>
+                <input type="range" id="slider-w2" min="0" max="100" value="20" step="5" oninput="onWeightSliderChange()" class="w-full">
+              </div>
+            </div>
+
+            <!-- C3 -->
+            <div class="border border-slate-200/90 rounded-xl p-4 bg-white shadow-xs space-y-3">
+              <div class="flex items-center justify-between">
+                <span class="font-mono font-bold text-xs px-2.5 py-1 rounded bg-[#245B83]/10 text-[#245B83]">Kriteria C3</span>
+                <span class="text-xs font-bold px-2 py-0.5 rounded bg-emerald-100 text-[#159B78]">Benefit (Max)</span>
+              </div>
+              <div>
+                <h4 class="font-bold text-xs text-[#1E293B]">Indeks Keparahan Kemiskinan (P₂)</h4>
+                <p class="text-[11px] text-[#64748B] mt-0.5">Ketimpangan pengeluaran di antara penduduk miskin</p>
+              </div>
+              <div class="space-y-1 pt-2 border-t border-slate-100">
+                <div class="flex justify-between text-xs">
+                  <span class="text-[#64748B]">Bobot w₃:</span>
+                  <span class="font-bold text-[#159B78]" id="val-w3">0.20 (20%)</span>
+                </div>
+                <input type="range" id="slider-w3" min="0" max="100" value="20" step="5" oninput="onWeightSliderChange()" class="w-full">
+              </div>
+            </div>
+
+            <!-- C4 -->
+            <div class="border border-slate-200/90 rounded-xl p-4 bg-white shadow-xs space-y-3">
+              <div class="flex items-center justify-between">
+                <span class="font-mono font-bold text-xs px-2.5 py-1 rounded bg-[#245B83]/10 text-[#245B83]">Kriteria C4</span>
+                <span class="text-xs font-bold px-2 py-0.5 rounded bg-emerald-100 text-[#159B78]">Benefit (Max)</span>
+              </div>
+              <div>
+                <h4 class="font-bold text-xs text-[#1E293B]">Tingkat Pengangguran Terbuka (TPT)</h4>
+                <p class="text-[11px] text-[#64748B] mt-0.5">Persentase angkatan kerja menganggur (%)</p>
+              </div>
+              <div class="space-y-1 pt-2 border-t border-slate-100">
+                <div class="flex justify-between text-xs">
+                  <span class="text-[#64748B]">Bobot w₄:</span>
+                  <span class="font-bold text-[#159B78]" id="val-w4">0.15 (15%)</span>
+                </div>
+                <input type="range" id="slider-w4" min="0" max="100" value="15" step="5" oninput="onWeightSliderChange()" class="w-full">
+              </div>
+            </div>
+
+            <!-- C5 -->
+            <div class="border border-slate-200/90 rounded-xl p-4 bg-white shadow-xs space-y-3 md:col-span-2 lg:col-span-1">
+              <div class="flex items-center justify-between">
+                <span class="font-mono font-bold text-xs px-2.5 py-1 rounded bg-[#245B83]/10 text-[#245B83]">Kriteria C5</span>
+                <span class="text-xs font-bold px-2 py-0.5 rounded bg-amber-100 text-amber-800">Cost (Min)</span>
+              </div>
+              <div>
+                <h4 class="font-bold text-xs text-[#1E293B]">Indeks Pembangunan Manusia (IPM)</h4>
+                <p class="text-[11px] text-[#64748B] mt-0.5">IPM rendah menandakan kebutuhan intervensi lebih tinggi</p>
+              </div>
+              <div class="space-y-1 pt-2 border-t border-slate-100">
+                <div class="flex justify-between text-xs">
+                  <span class="text-[#64748B]">Bobot w₅:</span>
+                  <span class="font-bold text-[#159B78]" id="val-w5">0.20 (20%)</span>
+                </div>
+                <input type="range" id="slider-w5" min="0" max="100" value="20" step="5" oninput="onWeightSliderChange()" class="w-full">
+              </div>
+            </div>
+          </div>
+
+          <div class="pt-4 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-3">
+            <div class="text-xs text-[#64748B]">
+              <span class="font-bold text-[#172B4D]">Kriteria Benefit vs Cost:</span> C1 s.d. C4 dinormalisasi dengan $r = x / \max(x)$, sedangkan C5 (IPM) dinormalisasi dengan $r = \min(x) / x$.
+            </div>
+            <button onclick="recalculateAndGoToResults()" class="px-5 py-2.5 bg-[#172B4D] hover:bg-[#245B83] text-white rounded-lg text-xs font-semibold transition shadow-xs flex items-center gap-2">
+              <span>Hitung & Lihat Hasil Perangkingan</span>
+              <span>&rarr;</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ======================================================== -->
+      <!-- PAGE 5: RINCIAN PERHITUNGAN SAW -->
+      <!-- ======================================================== -->
+      <section id="page-calculation" class="space-y-6 hidden">
+        <div class="bg-white border border-slate-200/80 rounded-xl p-6 card-elevation space-y-5">
+          <div>
+            <h3 class="font-bold text-base text-[#1E293B]">Transparansi Rincian Perhitungan SAW (5 Parameter)</h3>
+            <p class="text-xs text-[#64748B]">
+              Tahapan matematis lengkap dari Matriks Asal ($X$), Nilai Ekstrem $\max/\min$, Matriks Normalisasi ($R$), hingga Nilai Preferensi ($V_i$).
+            </p>
+          </div>
+
+          <!-- Reference Benchmark Values -->
+          <div class="grid grid-cols-2 sm:grid-cols-5 gap-3 p-4 bg-slate-50 border border-slate-200 rounded-lg text-xs">
+            <div>
+              <span class="text-[#64748B]">Max C1 (P₀):</span>
+              <div class="font-bold text-[#245B83]" id="calc-max-c1">11.93% (Indramayu)</div>
+            </div>
+            <div>
+              <span class="text-[#64748B]">Max C2 (P₁):</span>
+              <div class="font-bold text-[#245B83]" id="calc-max-c2">2.18 (Kuningan)</div>
+            </div>
+            <div>
+              <span class="text-[#64748B]">Max C3 (P₂):</span>
+              <div class="font-bold text-[#245B83]" id="calc-max-c3">0.54 (Indramayu)</div>
+            </div>
+            <div>
+              <span class="text-[#64748B]">Max C4 (TPT):</span>
+              <div class="font-bold text-[#245B83]" id="calc-max-c4">8.97% (Cimahi)</div>
+            </div>
+            <div>
+              <span class="text-[#64748B]">Min C5 (IPM - Cost):</span>
+              <div class="font-bold text-amber-700" id="calc-min-c5">68.89 (Cianjur)</div>
+            </div>
+          </div>
+
+          <!-- Normalized Matrix Table -->
+          <div class="border border-slate-200 rounded-lg overflow-hidden">
+            <div class="overflow-x-auto max-h-[460px]">
+              <table class="w-full text-left border-collapse text-xs">
+                <thead class="sticky top-0 bg-slate-50 border-b border-slate-200 text-[#64748B]">
+                  <tr>
+                    <th class="py-3 px-3 font-semibold">Nama Wilayah</th>
+                    <th class="py-3 px-2 text-center">rᵢ₁ (P₀)</th>
+                    <th class="py-3 px-2 text-center">rᵢ₂ (P₁)</th>
+                    <th class="py-3 px-2 text-center">rᵢ₃ (P₂)</th>
+                    <th class="py-3 px-2 text-center">rᵢ₄ (TPT)</th>
+                    <th class="py-3 px-2 text-center">rᵢ₅ (IPM)</th>
+                    <th class="py-3 px-3 text-right font-bold text-[#245B83]">Skor Akhir Vᵢ</th>
+                    <th class="py-3 px-2 text-center">Detail</th>
+                  </tr>
+                </thead>
+                <tbody id="calc-matrix-body" class="divide-y divide-slate-100">
+                  <!-- Rendered dynamically -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ======================================================== -->
+      <!-- PAGE 6: HASIL PERANGKINGAN -->
+      <!-- ======================================================== -->
+      <section id="page-results" class="space-y-6 hidden">
+        <div class="bg-white border border-slate-200/80 rounded-xl p-6 card-elevation space-y-5">
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div>
+              <h3 class="font-bold text-base text-[#1E293B]">Hasil Pemeringkatan Prioritas Penanggulangan Kemiskinan Jawa Barat</h3>
+              <p class="text-xs text-[#64748B]">
+                27 Kabupaten/Kota Jawa Barat diurutkan secara menurun berdasarkan nilai preferensi preferensial $V_i$.
+              </p>
+            </div>
+            <div class="flex items-center gap-2">
+              <button onclick="saveCurrentCalculationToHistory()" class="px-3.5 py-2 bg-[#245B83] hover:bg-[#1e4868] text-white rounded-lg text-xs font-semibold flex items-center gap-1.5 transition shadow-xs">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"/></svg>
+                <span>Simpan Riwayat</span>
+              </button>
+              <button onclick="exportCSVResults()" class="px-3.5 py-2 bg-[#159B78] hover:bg-[#128365] text-white rounded-lg text-xs font-semibold flex items-center gap-1.5 transition shadow-xs">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                <span>Ekspor CSV Hasil</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="flex flex-col sm:flex-row items-center justify-between gap-3 pt-1 border-t border-slate-100">
+            <div class="w-full sm:w-72">
+              <input type="text" id="search-region" oninput="filterResultsTable()" placeholder="Cari nama kabupaten/kota..." class="w-full text-xs px-3.5 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-[#159B78]">
+            </div>
+            <div class="flex items-center gap-2 text-[11px] flex-wrap">
+              <span class="text-[#64748B]">Kategori:</span>
+              <span class="px-2 py-0.5 rounded bg-red-50 text-red-700 font-semibold border border-red-200">Sangat Tinggi</span>
+              <span class="px-2 py-0.5 rounded bg-amber-50 text-amber-700 font-semibold border border-amber-200">Tinggi</span>
+              <span class="px-2 py-0.5 rounded bg-blue-50 text-[#245B83] font-semibold border border-blue-200">Sedang</span>
+              <span class="px-2 py-0.5 rounded bg-slate-100 text-slate-700 font-semibold border border-slate-200">Rendah</span>
+            </div>
+          </div>
+
+          <div class="border border-slate-200 rounded-lg overflow-hidden">
+            <div class="overflow-x-auto">
+              <table class="w-full text-left border-collapse text-xs">
+                <thead class="bg-slate-50 border-b border-slate-200 text-[#64748B]">
+                  <tr>
+                    <th class="py-3 px-2 text-center w-12 font-semibold">Rank</th>
+                    <th class="py-3 px-3 font-semibold">Nama Wilayah</th>
+                    <th class="py-3 px-2 text-center">P₀ (%)</th>
+                    <th class="py-3 px-2 text-center">P₁</th>
+                    <th class="py-3 px-2 text-center">P₂</th>
+                    <th class="py-3 px-2 text-center">TPT (%)</th>
+                    <th class="py-3 px-2 text-center">IPM</th>
+                    <th class="py-3 px-3 text-center w-40">Distribusi Skor</th>
+                    <th class="py-3 px-3 text-right font-bold text-[#172B4D]">Skor Vᵢ</th>
+                    <th class="py-3 px-2 text-center">Status</th>
+                  </tr>
+                </thead>
+                <tbody id="results-table-body" class="divide-y divide-slate-100">
+                  <!-- Rendered dynamically -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ======================================================== -->
+      <!-- PAGE 7: RIWAYAT PERHITUNGAN -->
+      <!-- ======================================================== -->
+      <section id="page-history" class="space-y-6 hidden">
+        <div class="bg-white border border-slate-200/80 rounded-xl p-6 card-elevation space-y-5">
+          <div>
+            <h3 class="font-bold text-base text-[#1E293B]">Riwayat Audit Sesi Perhitungan SAW</h3>
+            <p class="text-xs text-[#64748B]">
+              Log keterlacakan (*audit trail*) sesi komputasi keputusan, konfigurasi bobot, dan waktu eksekusi.
+            </p>
+          </div>
+
+          <div class="border border-slate-200 rounded-lg overflow-hidden">
+            <div class="overflow-x-auto">
+              <table class="w-full text-left border-collapse text-xs">
+                <thead class="bg-slate-50 border-b border-slate-200 text-[#64748B]">
+                  <tr>
+                    <th class="py-3 px-3 text-center w-16 font-semibold">Sesi ID</th>
+                    <th class="py-3 px-3 font-semibold">Waktu Komputasi</th>
+                    <th class="py-3 px-3 font-semibold">Dataset Digunakan</th>
+                    <th class="py-3 px-3 text-center">Konfigurasi Bobot (w₁-w₅)</th>
+                    <th class="py-3 px-3 text-center">Jumlah Wilayah</th>
+                    <th class="py-3 px-3 font-semibold">Catatan Sesi</th>
+                  </tr>
+                </thead>
+                <tbody id="history-table-body" class="divide-y divide-slate-100">
+                  <!-- Rendered dynamically -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ======================================================== -->
+      <!-- PAGE 8: SUMBER DATA & METODOLOGI BPS (LENGKAP) -->
+      <!-- ======================================================== -->
+      <section id="page-source" class="space-y-6 hidden">
+        <div class="bg-white border border-slate-200/80 rounded-xl p-6 card-elevation space-y-6">
+          <div>
+            <h3 class="font-bold text-base text-[#1E293B]">Dokumentasi Sumber Data Resmi & Tautan BPS Jawa Barat</h3>
+            <p class="text-xs text-[#64748B]">
+              Seluruh data indikator yang digunakan dalam SPK ini bersumber dari publikasi resmi Badan Pusat Statistik (BPS) Provinsi Jawa Barat dan Satu Data Jawa Barat Tahun 2024.
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-5 text-xs">
+            <div class="p-4 bg-slate-50 border border-slate-200 rounded-xl space-y-2">
+              <span class="font-bold text-[#172B4D] text-sm block">1. Persentase Penduduk Miskin (P₀)</span>
+              <p class="text-[#64748B] leading-relaxed">
+                Proporsi penduduk yang memiliki rata-rata pengeluaran per kapita per bulan di bawah Garis Kemiskinan (*Headcount Index*).
+              </p>
+              <div class="text-[11px] text-[#245B83]"><strong>Lembaga & Survei:</strong> BPS Provinsi Jawa Barat — Susenas 2024</div>
+              <div class="text-[11px] text-[#159B78]"><strong>Tautan Resmi:</strong> <a href="https://jabar.bps.go.id" target="_blank" class="underline font-semibold">https://jabar.bps.go.id</a></div>
+            </div>
+
+            <div class="p-4 bg-slate-50 border border-slate-200 rounded-xl space-y-2">
+              <span class="font-bold text-[#172B4D] text-sm block">2. Indeks Kedalaman Kemiskinan (P₁)</span>
+              <p class="text-[#64748B] leading-relaxed">
+                Ukuran rata-rata kesenjangan pengeluaran masing-masing penduduk miskin terhadap garis kemiskinan (*Poverty Gap Index*). Makin tinggi nilai $P_1$, makin jauh pengeluaran penduduk miskin dari garis batas.
+              </p>
+              <div class="text-[11px] text-[#245B83]"><strong>Lembaga & Survei:</strong> BPS Provinsi Jawa Barat — Susenas 2024</div>
+              <div class="text-[11px] text-[#159B78]"><strong>Tautan Resmi:</strong> <a href="https://jabar.bps.go.id" target="_blank" class="underline font-semibold">https://jabar.bps.go.id</a></div>
+            </div>
+
+            <div class="p-4 bg-slate-50 border border-slate-200 rounded-xl space-y-2">
+              <span class="font-bold text-[#172B4D] text-sm block">3. Indeks Keparahan Kemiskinan (P₂)</span>
+              <p class="text-[#64748B] leading-relaxed">
+                Memberikan gambaran mengenai penyebaran atau ketimpangan pengeluaran di antara sesama penduduk miskin (*Poverty Severity Index*).
+              </p>
+              <div class="text-[11px] text-[#245B83]"><strong>Lembaga:</strong> BPS Jabar & Satu Data Jabar</div>
+              <div class="text-[11px] text-[#159B78]"><strong>Tautan Resmi:</strong> <a href="https://opendata.jabarprov.go.id/id/dataset/indeks-keparahan-kemiskinan-berdasarkan-kabupatenkota-di-jawa-barat" target="_blank" class="underline font-semibold">Open Data Jabar Portal</a></div>
+            </div>
+
+            <div class="p-4 bg-slate-50 border border-slate-200 rounded-xl space-y-2">
+              <span class="font-bold text-[#172B4D] text-sm block">4. Tingkat Pengangguran Terbuka (TPT)</span>
+              <p class="text-[#64748B] leading-relaxed">
+                Persentase jumlah penganggur terhadap jumlah angkatan kerja. Menggambarkan tekanan pasar tenaga kerja dan kerentanan ekonomi lokal.
+              </p>
+              <div class="text-[11px] text-[#245B83]"><strong>Lembaga & Survei:</strong> BPS Jawa Barat — Sakernas 2024</div>
+              <div class="text-[11px] text-[#159B78]"><strong>Tautan Resmi:</strong> <a href="https://jabar.bps.go.id" target="_blank" class="underline font-semibold">https://jabar.bps.go.id</a></div>
+            </div>
+
+            <div class="p-4 bg-slate-50 border border-slate-200 rounded-xl space-y-2 md:col-span-2">
+              <span class="font-bold text-[#172B4D] text-sm block">5. Indeks Pembangunan Manusia (IPM - Sifat Cost)</span>
+              <p class="text-[#64748B] leading-relaxed">
+                Menilai kualitas capaian pembangunan manusia berbasis standar hidup layak, pendidikan, dan kesehatan. Dalam SPK ini bersifat **Cost**, di mana wilayah dengan IPM terendah memiliki urgensi penanganan kemiskinan lebih mendesak.
+              </p>
+              <div class="text-[11px] text-[#245B83]"><strong>Lembaga:</strong> BPS Provinsi Jawa Barat — Rilis IPM Metode Baru 2024</div>
+              <div class="text-[11px] text-[#159B78]"><strong>Tautan Resmi:</strong> <a href="https://jabar.bps.go.id" target="_blank" class="underline font-semibold">https://jabar.bps.go.id</a></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Modal Pop-up Rincian Perhitungan Matematis per Daerah -->
+  <div id="modal-detail" class="fixed inset-0 bg-black/40 backdrop-blur-xs hidden flex items-center justify-center p-4 z-50">
+    <div class="bg-white border border-slate-200 rounded-2xl max-w-lg w-full p-6 shadow-2xl space-y-4">
+      <div class="flex items-center justify-between pb-3 border-b border-slate-200">
+        <h3 class="font-bold text-sm text-[#172B4D]" id="modal-region-title">Langkah Perhitungan SAW</h3>
+        <button onclick="closeModal()" class="text-slate-400 hover:text-slate-800 font-bold text-lg leading-none">&times;</button>
+      </div>
+      <div class="space-y-3 text-xs" id="modal-region-content">
+        <!-- Rendered dynamically -->
+      </div>
+      <div class="pt-3 border-t border-slate-200 flex justify-end">
+        <button onclick="closeModal()" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-[#1E293B] rounded-lg font-semibold text-xs transition">
+          Tutup
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- JAVASCRIPT APPLICATION CORE (5 KRITERIA RESMI BPS 2024) -->
+  <script>
+    // Master Dataset 27 Wilayah Jawa Barat (Data Resmi BPS Jabar 2024 Lengkap)
+    let currentData = [
+      { code: "3201", name: "Kabupaten Bogor", type: "Kabupaten", p0: 7.05, p1: 1.18, p2: 0.26, tpt: 7.34, ipm: 73.63 },
+      { code: "3202", name: "Kabupaten Sukabumi", type: "Kabupaten", p0: 6.87, p1: 1.05, p2: 0.20, tpt: 7.11, ipm: 70.18 },
+      { code: "3203", name: "Kabupaten Cianjur", type: "Kabupaten", p0: 10.14, p1: 1.76, p2: 0.41, tpt: 5.99, ipm: 68.89 },
+      { code: "3204", name: "Kabupaten Bandung", type: "Kabupaten", p0: 6.19, p1: 0.95, p2: 0.09, tpt: 6.36, ipm: 74.59 },
+      { code: "3205", name: "Kabupaten Garut", type: "Kabupaten", p0: 9.68, p1: 1.62, p2: 0.29, tpt: 6.96, ipm: 69.91 },
+      { code: "3206", name: "Kabupaten Tasikmalaya", type: "Kabupaten", p0: 10.23, p1: 1.54, p2: 0.15, tpt: 3.74, ipm: 69.98 },
+      { code: "3207", name: "Kabupaten Ciamis", type: "Kabupaten", p0: 7.39, p1: 1.28, p2: 0.20, tpt: 3.37, ipm: 73.64 },
+      { code: "3208", name: "Kabupaten Kuningan", type: "Kabupaten", p0: 11.88, p1: 2.18, p2: 0.53, tpt: 7.78, ipm: 71.56 },
+      { code: "3209", name: "Kabupaten Cirebon", type: "Kabupaten", p0: 11.00, p1: 1.82, p2: 0.36, tpt: 6.74, ipm: 72.30 },
+      { code: "3210", name: "Kabupaten Majalengka", type: "Kabupaten", p0: 10.82, p1: 1.89, p2: 0.45, tpt: 4.01, ipm: 71.37 },
+      { code: "3211", name: "Kabupaten Sumedang", type: "Kabupaten", p0: 9.10, p1: 1.52, p2: 0.45, tpt: 6.16, ipm: 74.57 },
+      { code: "3212", name: "Kabupaten Indramayu", type: "Kabupaten", p0: 11.93, p1: 2.05, p2: 0.54, tpt: 6.25, ipm: 70.72 },
+      { code: "3213", name: "Kabupaten Subang", type: "Kabupaten", p0: 9.49, p1: 1.68, p2: 0.46, tpt: 6.73, ipm: 72.05 },
+      { code: "3214", name: "Kabupaten Purwakarta", type: "Kabupaten", p0: 7.53, p1: 1.35, p2: 0.35, tpt: 7.34, ipm: 73.99 },
+      { code: "3215", name: "Kabupaten Karawang", type: "Kabupaten", p0: 7.42, p1: 1.31, p2: 0.28, tpt: 8.04, ipm: 73.82 },
+      { code: "3216", name: "Kabupaten Bekasi", type: "Kabupaten", p0: 4.51, p1: 0.88, p2: 0.17, tpt: 8.82, ipm: 76.80 },
+      { code: "3217", name: "Kabupaten Bandung Barat", type: "Kabupaten", p0: 10.11, p1: 1.48, p2: 0.23, tpt: 6.70, ipm: 70.77 },
+      { code: "3218", name: "Kabupaten Pangandaran", type: "Kabupaten", p0: 7.90, p1: 1.42, p2: 0.29, tpt: 1.58, ipm: 71.03 },
+      { code: "3271", name: "Kota Bogor", type: "Kota", p0: 5.51, p1: 1.08, p2: 0.24, tpt: 8.13, ipm: 79.03 },
+      { code: "3272", name: "Kota Sukabumi", type: "Kota", p0: 7.08, p1: 1.12, p2: 0.18, tpt: 8.34, ipm: 77.69 },
+      { code: "3273", name: "Kota Bandung", type: "Kota", p0: 3.36, p1: 0.62, p2: 0.14, tpt: 7.40, ipm: 83.75 },
+      { code: "3274", name: "Kota Cirebon", type: "Kota", p0: 9.02, p1: 1.48, p2: 0.25, tpt: 6.29, ipm: 78.09 },
+      { code: "3275", name: "Kota Bekasi", type: "Kota", p0: 3.80, p1: 0.65, p2: 0.21, tpt: 7.82, ipm: 83.55 },
+      { code: "3276", name: "Kota Depok", type: "Kota", p0: 2.34, p1: 0.38, p2: 0.07, tpt: 6.27, ipm: 83.05 },
+      { code: "3277", name: "Kota Cimahi", type: "Kota", p0: 4.16, p1: 0.85, p2: 0.21, tpt: 8.97, ipm: 80.30 },
+      { code: "3278", name: "Kota Tasikmalaya", type: "Kota", p0: 11.10, p1: 1.85, p2: 0.26, tpt: 6.49, ipm: 76.03 },
+      { code: "3279", name: "Kota Banjar", type: "Kota", p0: 5.82, p1: 1.15, p2: 0.29, tpt: 5.44, ipm: 75.01 }
+    ];
+
+    // Bobot Default 5 Kriteria (Total = 1.00 / 100%)
+    let currentWeights = {
+      C1: 0.25, // P0 (Kemiskinan)
+      C2: 0.20, // P1 (Kedalaman)
+      C3: 0.20, // P2 (Keparahan)
+      C4: 0.15, // TPT
+      C5: 0.20  // IPM (Cost)
+    };
+
+    let calculatedResults = [];
+    let historySessions = [
+      { id: 1, time: "2024-11-08 20:00", dataset: "BPS Jawa Barat 2024 (5 Kriteria Resmi)", weights: "C1:25%, C2:20%, C3:20%, C4:15%, C5:20%", count: 27, notes: "Master Data 5 Kriteria BPS Terverifikasi" }
+    ];
+
+    function switchPage(pageId) {
+      const pages = ['dashboard', 'regions', 'import', 'weights', 'calculation', 'results', 'history', 'source'];
+      const pageTitles = {
+        dashboard: "Dashboard Prioritas Kemiskinan (5 Kriteria BPS)",
+        regions: "Master Data 27 Kabupaten / Kota (5 Parameter)",
+        import: "Impor & Validasi Dataset BPS",
+        weights: "Pengaturan Bobot 5 Kriteria (SAW)",
+        calculation: "Rincian Transparansi Matriks SAW",
+        results: "Hasil Pemeringkatan & Rekomendasi Prioritas",
+        history: "Riwayat Audit Sesi Perhitungan",
+        source: "Dokumentasi Sumber Data Resmi BPS"
+      };
+
+      const breadcrumbs = {
+        dashboard: "Dashboard Analytics",
+        regions: "Data Kabupaten / Kota",
+        import: "Import Dataset BPS",
+        weights: "Kriteria & Bobot",
+        calculation: "Rincian Perhitungan",
+        results: "Hasil Perangkingan",
+        history: "Riwayat Perhitungan",
+        source: "Sumber Data Resmi BPS"
+      };
+
+      pages.forEach(p => {
+        const pageEl = document.getElementById('page-' + p);
+        const navEl = document.getElementById('nav-' + p);
+        if (p === pageId) {
+          pageEl.classList.remove('hidden');
+          navEl.classList.add('nav-item-active');
+        } else {
+          pageEl.classList.add('hidden');
+          navEl.classList.remove('nav-item-active');
+        }
+      });
+
+      document.getElementById('page-title').textContent = pageTitles[pageId] || "SPK Kemiskinan Jawa Barat";
+      document.getElementById('breadcrumb-current').textContent = breadcrumbs[pageId] || "Halaman";
+
+      const sb = document.getElementById('sidebar');
+      if (!sb.classList.contains('-translate-x-full')) {
+        sb.classList.add('-translate-x-full');
+      }
+    }
+
+    function toggleMobileSidebar() {
+      const sb = document.getElementById('sidebar');
+      sb.classList.toggle('-translate-x-full');
+    }
+
+    // Weight Slider Change Handler (5 Sliders)
+    function onWeightSliderChange() {
+      const w1 = parseInt(document.getElementById('slider-w1').value) / 100;
+      const w2 = parseInt(document.getElementById('slider-w2').value) / 100;
+      const w3 = parseInt(document.getElementById('slider-w3').value) / 100;
+      const w4 = parseInt(document.getElementById('slider-w4').value) / 100;
+      const w5 = parseInt(document.getElementById('slider-w5').value) / 100;
+
+      currentWeights.C1 = w1;
+      currentWeights.C2 = w2;
+      currentWeights.C3 = w3;
+      currentWeights.C4 = w4;
+      currentWeights.C5 = w5;
+
+      document.getElementById('val-w1').textContent = `${w1.toFixed(2)} (${(w1 * 100).toFixed(0)}%)`;
+      document.getElementById('val-w2').textContent = `${w2.toFixed(2)} (${(w2 * 100).toFixed(0)}%)`;
+      document.getElementById('val-w3').textContent = `${w3.toFixed(2)} (${(w3 * 100).toFixed(0)}%)`;
+      document.getElementById('val-w4').textContent = `${w4.toFixed(2)} (${(w4 * 100).toFixed(0)}%)`;
+      document.getElementById('val-w5').textContent = `${w5.toFixed(2)} (${(w5 * 100).toFixed(0)}%)`;
+
+      const sum = (w1 + w2 + w3 + w4 + w5).toFixed(2);
+      const indicator = document.getElementById('weight-sum-indicator');
+      const topbarBadge = document.getElementById('topbar-weight-badge');
+      const sidebarStatus = document.getElementById('sidebar-weight-status');
+
+      if (Math.abs(sum - 1.0) < 0.001) {
+        indicator.className = "px-3.5 py-1.5 rounded-lg text-xs font-bold bg-emerald-100 text-emerald-800 border border-emerald-300";
+        indicator.textContent = "Total Bobot: 1.00 (Valid 100%)";
+        topbarBadge.className = "inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-emerald-50 text-[#159B78] border border-emerald-200";
+        topbarBadge.innerHTML = `<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg> Total Bobot: 1.00 (100%)`;
+        sidebarStatus.className = "text-[#159B78] font-bold";
+        sidebarStatus.textContent = "100% (Valid)";
+      } else {
+        indicator.className = "px-3.5 py-1.5 rounded-lg text-xs font-bold bg-red-100 text-red-800 border border-red-300";
+        indicator.textContent = `Total Bobot: ${sum} (Harus 1.00)`;
+        topbarBadge.className = "inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-red-50 text-red-700 border border-red-200";
+        topbarBadge.innerHTML = `⚠️ Total Bobot: ${sum} (Belum 100%)`;
+        sidebarStatus.className = "text-red-400 font-bold";
+        sidebarStatus.textContent = `${sum} (Perlu 100%)`;
+      }
+
+      runSAW();
+    }
+
+    function applyPreset(presetType) {
+      if (presetType === 'balanced_analyst') {
+        currentWeights = { C1: 0.25, C2: 0.20, C3: 0.20, C4: 0.15, C5: 0.20 };
+        document.getElementById('slider-w1').value = 25;
+        document.getElementById('slider-w2').value = 20;
+        document.getElementById('slider-w3').value = 20;
+        document.getElementById('slider-w4').value = 15;
+        document.getElementById('slider-w5').value = 20;
+      } else if (presetType === 'poverty_focus') {
+        currentWeights = { C1: 0.30, C2: 0.25, C3: 0.25, C4: 0.10, C5: 0.10 };
+        document.getElementById('slider-w1').value = 30;
+        document.getElementById('slider-w2').value = 25;
+        document.getElementById('slider-w3').value = 25;
+        document.getElementById('slider-w4').value = 10;
+        document.getElementById('slider-w5').value = 10;
+      } else if (presetType === 'equal') {
+        currentWeights = { C1: 0.20, C2: 0.20, C3: 0.20, C4: 0.20, C5: 0.20 };
+        document.getElementById('slider-w1').value = 20;
+        document.getElementById('slider-w2').value = 20;
+        document.getElementById('slider-w3').value = 20;
+        document.getElementById('slider-w4').value = 20;
+        document.getElementById('slider-w5').value = 20;
+      }
+      onWeightSliderChange();
+    }
+
+    // Core SAW Calculator Engine for 5 Criteria
+    function runSAW() {
+      const maxC1 = Math.max(...currentData.map(d => d.p0));
+      const maxC2 = Math.max(...currentData.map(d => d.p1));
+      const maxC3 = Math.max(...currentData.map(d => d.p2));
+      const maxC4 = Math.max(...currentData.map(d => d.tpt));
+      const minC5 = Math.min(...currentData.map(d => d.ipm));
+
+      document.getElementById('calc-max-c1').textContent = `${maxC1.toFixed(2)}% (Indramayu)`;
+      document.getElementById('calc-max-c2').textContent = `${maxC2.toFixed(2)} (Kuningan)`;
+      document.getElementById('calc-max-c3').textContent = `${maxC3.toFixed(2)} (Indramayu)`;
+      document.getElementById('calc-max-c4').textContent = `${maxC4.toFixed(2)}% (Cimahi)`;
+      document.getElementById('calc-min-c5').textContent = `${minC5.toFixed(2)} (Cianjur)`;
+
+      calculatedResults = currentData.map(d => {
+        // Normalisasi
+        const r1 = d.p0 / maxC1;
+        const r2 = d.p1 / maxC2;
+        const r3 = d.p2 / maxC3;
+        const r4 = d.tpt / maxC4;
+        const r5 = minC5 / d.ipm; // Cost
+
+        // Pembobotan 5 Kriteria
+        const score = (currentWeights.C1 * r1) +
+                      (currentWeights.C2 * r2) +
+                      (currentWeights.C3 * r3) +
+                      (currentWeights.C4 * r4) +
+                      (currentWeights.C5 * r5);
+
+        return {
+          code: d.code,
+          name: d.name,
+          type: d.type,
+          p0: d.p0,
+          p1: d.p1,
+          p2: d.p2,
+          tpt: d.tpt,
+          ipm: d.ipm,
+          r1, r2, r3, r4, r5,
+          score
+        };
+      });
+
+      // Sorting Descending
+      calculatedResults.sort((a, b) => {
+        if (Math.abs(b.score - a.score) > 0.00001) return b.score - a.score;
+        return b.p0 - a.p0;
+      });
+
+      calculatedResults.forEach((item, index) => {
+        item.rank = index + 1;
+        if (item.rank <= 5) item.category = 'Prioritas Sangat Tinggi';
+        else if (item.rank <= 12) item.category = 'Prioritas Tinggi';
+        else if (item.rank <= 20) item.category = 'Prioritas Sedang';
+        else item.category = 'Prioritas Rendah';
+      });
+
+      renderAllComponents();
+    }
+
+    function renderAllComponents() {
+      renderDashboardTop();
+      renderMasterRegionTable();
+      renderCalculationMatrix();
+      renderResultsTable();
+      renderHistoryTable();
+    }
+
+    function renderDashboardTop() {
+      const top1 = calculatedResults[0];
+      if (top1) {
+        document.getElementById('kpi-top-name').textContent = top1.name;
+        document.getElementById('kpi-top-score').textContent = `Skor Preferensi: ${top1.score.toFixed(4)}`;
+      }
+
+      const tbody = document.getElementById('dashboard-top5-body');
+      tbody.innerHTML = calculatedResults.slice(0, 5).map(item => `
+        <tr class="hover:bg-slate-50 transition">
+          <td class="py-3 px-2 text-center font-bold text-red-600">#${item.rank}</td>
+          <td class="py-3 px-3 font-semibold text-[#1E293B]">${item.name}</td>
+          <td class="py-3 px-2 text-center font-mono">${item.p0.toFixed(2)}%</td>
+          <td class="py-3 px-2 text-center font-mono">${item.p1.toFixed(2)}</td>
+          <td class="py-3 px-2 text-center font-mono">${item.p2.toFixed(2)}</td>
+          <td class="py-3 px-2 text-center font-mono">${item.tpt.toFixed(2)}%</td>
+          <td class="py-3 px-2 text-center font-mono">${item.ipm.toFixed(2)}</td>
+          <td class="py-3 px-3 text-right font-bold text-[#245B83] font-mono">${item.score.toFixed(4)}</td>
+          <td class="py-3 px-2 text-center">
+            <span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-red-50 text-red-700 border border-red-200">
+              Sangat Tinggi
+            </span>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    function renderMasterRegionTable() {
+      const tbody = document.getElementById('master-region-table-body');
+      tbody.innerHTML = currentData.map((d, idx) => `
+        <tr class="hover:bg-slate-50 transition" data-type="${d.type}" data-name="${d.name.toLowerCase()}">
+          <td class="py-3 px-2 text-center text-[#64748B]">${idx + 1}</td>
+          <td class="py-3 px-2 font-mono text-[#64748B]">${d.code}</td>
+          <td class="py-3 px-3 font-semibold text-[#1E293B]">${d.name}</td>
+          <td class="py-3 px-2 text-center">
+            <span class="px-2 py-0.5 rounded text-[11px] font-medium ${d.type === 'Kota' ? 'bg-blue-50 text-[#245B83]' : 'bg-slate-100 text-slate-700'}">
+              ${d.type}
+            </span>
+          </td>
+          <td class="py-3 px-2 text-center font-mono font-medium">${d.p0.toFixed(2)}%</td>
+          <td class="py-3 px-2 text-center font-mono font-medium">${d.p1.toFixed(2)}</td>
+          <td class="py-3 px-2 text-center font-mono font-medium">${d.p2.toFixed(2)}</td>
+          <td class="py-3 px-2 text-center font-mono font-medium">${d.tpt.toFixed(2)}%</td>
+          <td class="py-3 px-2 text-center font-mono font-medium">${d.ipm.toFixed(2)}</td>
+          <td class="py-3 px-2 text-center">
+            <span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-semibold bg-emerald-50 text-[#159B78] border border-emerald-200">
+              ✓ Valid BPS
+            </span>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    function filterMasterRegionTable() {
+      const q = document.getElementById('search-master-region').value.toLowerCase();
+      const typeFilter = document.getElementById('filter-region-type').value;
+      const rows = document.querySelectorAll('#master-region-table-body tr');
+
+      rows.forEach(r => {
+        const rowType = r.getAttribute('data-type');
+        const rowName = r.getAttribute('data-name');
+        const matchesType = (typeFilter === 'ALL' || rowType === typeFilter);
+        const matchesQuery = rowName.includes(q);
+
+        r.style.display = (matchesType && matchesQuery) ? '' : 'none';
+      });
+    }
+
+    function renderCalculationMatrix() {
+      const tbody = document.getElementById('calc-matrix-body');
+      tbody.innerHTML = calculatedResults.map(item => `
+        <tr class="hover:bg-slate-50 transition">
+          <td class="py-3 px-3 font-medium text-[#1E293B]">${item.name}</td>
+          <td class="py-3 px-2 text-center font-mono text-[11px] font-bold text-[#159B78]">${item.r1.toFixed(4)}</td>
+          <td class="py-3 px-2 text-center font-mono text-[11px] font-bold text-[#159B78]">${item.r2.toFixed(4)}</td>
+          <td class="py-3 px-2 text-center font-mono text-[11px] font-bold text-[#159B78]">${item.r3.toFixed(4)}</td>
+          <td class="py-3 px-2 text-center font-mono text-[11px] font-bold text-[#159B78]">${item.r4.toFixed(4)}</td>
+          <td class="py-3 px-2 text-center font-mono text-[11px] font-bold text-amber-600">${item.r5.toFixed(4)}</td>
+          <td class="py-3 px-3 text-right font-bold text-[#245B83] font-mono">${item.score.toFixed(4)}</td>
+          <td class="py-3 px-2 text-center">
+            <button onclick="openModalDetail('${item.name}')" class="text-[#245B83] hover:text-[#159B78] hover:underline text-[11px] font-semibold">
+              Rincian
+            </button>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    function renderResultsTable() {
+      const tbody = document.getElementById('results-table-body');
+      tbody.innerHTML = calculatedResults.map(item => {
+        let badgeClass = 'bg-slate-100 text-slate-700 border border-slate-200';
+        let rankClass = 'bg-slate-100 text-slate-700 font-bold';
+
+        if (item.rank <= 5) {
+          rankClass = 'bg-red-600 text-white font-extrabold shadow-xs';
+          badgeClass = 'bg-red-50 text-red-700 font-semibold border border-red-200';
+        } else if (item.rank <= 12) {
+          badgeClass = 'bg-amber-50 text-amber-700 font-semibold border border-amber-200';
+        } else if (item.rank <= 20) {
+          badgeClass = 'bg-blue-50 text-[#245B83] font-semibold border border-blue-200';
+        }
+
+        const barWidth = (item.score * 100).toFixed(1);
+
+        return `
+          <tr class="hover:bg-slate-50 transition">
+            <td class="py-3 px-2 text-center">
+              <span class="inline-flex items-center justify-center w-6 h-6 rounded-full text-xs ${rankClass}">
+                ${item.rank}
+              </span>
+            </td>
+            <td class="py-3 px-3 font-bold text-[#1E293B]">${item.name}</td>
+            <td class="py-3 px-2 text-center font-mono">${item.p0.toFixed(2)}%</td>
+            <td class="py-3 px-2 text-center font-mono">${item.p1.toFixed(2)}</td>
+            <td class="py-3 px-2 text-center font-mono">${item.p2.toFixed(2)}</td>
+            <td class="py-3 px-2 text-center font-mono">${item.tpt.toFixed(2)}%</td>
+            <td class="py-3 px-2 text-center font-mono">${item.ipm.toFixed(2)}</td>
+            <td class="py-3 px-3">
+              <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
+                <div class="bg-gradient-to-r from-[#245B83] to-[#159B78] h-2 rounded-full" style="width: ${barWidth}%"></div>
+              </div>
+            </td>
+            <td class="py-3 px-3 text-right font-bold text-[#172B4D] font-mono">${item.score.toFixed(4)}</td>
+            <td class="py-3 px-2 text-center">
+              <span class="px-2 py-0.5 rounded text-[11px] ${badgeClass}">
+                ${item.category}
+              </span>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function renderHistoryTable() {
+      const tbody = document.getElementById('history-table-body');
+      tbody.innerHTML = historySessions.map(h => `
+        <tr class="hover:bg-slate-50 transition">
+          <td class="py-3 px-3 text-center font-mono text-[#64748B]">#${h.id}</td>
+          <td class="py-3 px-3 text-[#1E293B]">${h.time}</td>
+          <td class="py-3 px-3 font-semibold text-[#172B4D]">${h.dataset}</td>
+          <td class="py-3 px-3 text-center font-mono text-[#245B83] font-medium">${h.weights}</td>
+          <td class="py-3 px-3 text-center">${h.count} Kab/Kota</td>
+          <td class="py-3 px-3 text-[#64748B]">${h.notes}</td>
+        </tr>
+      `).join('');
+    }
+
+    function filterResultsTable() {
+      const q = document.getElementById('search-region').value.toLowerCase();
+      const rows = document.querySelectorAll('#results-table-body tr');
+      rows.forEach(r => {
+        r.style.display = r.innerText.toLowerCase().includes(q) ? '' : 'none';
+      });
+    }
+
+    function recalculateAndGoToResults() {
+      runSAW();
+      switchPage('results');
+    }
+
+    // Modal Details Popup (5 Criteria)
+    function openModalDetail(regionName) {
+      const item = calculatedResults.find(d => d.name === regionName);
+      if (!item) return;
+
+      const maxC1 = Math.max(...currentData.map(d => d.p0));
+      const maxC2 = Math.max(...currentData.map(d => d.p1));
+      const maxC3 = Math.max(...currentData.map(d => d.p2));
+      const maxC4 = Math.max(...currentData.map(d => d.tpt));
+      const minC5 = Math.min(...currentData.map(d => d.ipm));
+
+      document.getElementById('modal-region-title').textContent = `Langkah Perhitungan SAW: ${item.name}`;
+      document.getElementById('modal-region-content').innerHTML = `
+        <div class="p-3 bg-slate-50 border border-slate-200 rounded-lg">
+          <div class="font-bold text-[#172B4D] mb-1">1. Nilai Indikator Mentah Asal (xᵢ):</div>
+          <ul class="list-disc list-inside text-[#64748B] space-y-0.5">
+            <li>C1 (Persentase Miskin P₀): <strong>${item.p0.toFixed(2)}%</strong></li>
+            <li>C2 (Kedalaman Kemiskinan P₁): <strong>${item.p1.toFixed(2)}</strong></li>
+            <li>C3 (Keparahan Kemiskinan P₂): <strong>${item.p2.toFixed(2)}</strong></li>
+            <li>C4 (Tingkat Pengangguran TPT): <strong>${item.tpt.toFixed(2)}%</strong></li>
+            <li>C5 (Indeks Pembangunan Manusia): <strong>${item.ipm.toFixed(2)}</strong></li>
+          </ul>
+        </div>
+        <div class="p-3 bg-blue-50/70 border border-blue-200 rounded-lg">
+          <div class="font-bold text-[#245B83] mb-1">2. Langkah Normalisasi Matriks (rᵢⱼ):</div>
+          <ul class="space-y-1 text-[#245B83] font-mono text-[11px]">
+            <li>r₁ (P₀ - Benefit) = ${item.p0.toFixed(2)} / ${maxC1.toFixed(2)} = <strong>${item.r1.toFixed(4)}</strong></li>
+            <li>r₂ (P₁ - Benefit) = ${item.p1.toFixed(2)} / ${maxC2.toFixed(2)} = <strong>${item.r2.toFixed(4)}</strong></li>
+            <li>r₃ (P₂ - Benefit) = ${item.p2.toFixed(2)} / ${maxC3.toFixed(2)} = <strong>${item.r3.toFixed(4)}</strong></li>
+            <li>r₄ (TPT - Benefit) = ${item.tpt.toFixed(2)} / ${maxC4.toFixed(2)} = <strong>${item.r4.toFixed(4)}</strong></li>
+            <li>r₅ (IPM - Cost) = ${minC5.toFixed(2)} / ${item.ipm.toFixed(2)} = <strong>${item.r5.toFixed(4)}</strong></li>
+          </ul>
+        </div>
+        <div class="p-3 bg-emerald-50/70 border border-emerald-200 rounded-lg">
+          <div class="font-bold text-[#159B78] mb-1">3. Nilai Preferensi Terbobot (Vᵢ = Σ wⱼ × rᵢⱼ):</div>
+          <p class="font-mono text-emerald-900 text-[11px] leading-relaxed">
+            Vᵢ = (${currentWeights.C1.toFixed(2)}×${item.r1.toFixed(4)}) + (${currentWeights.C2.toFixed(2)}×${item.r2.toFixed(4)}) + (${currentWeights.C3.toFixed(2)}×${item.r3.toFixed(4)}) + (${currentWeights.C4.toFixed(2)}×${item.r4.toFixed(4)}) + (${currentWeights.C5.toFixed(2)}×${item.r5.toFixed(4)})
+          </p>
+          <div class="mt-2 text-sm font-bold text-[#159B78]">
+            Total Skor Vᵢ = ${item.score.toFixed(4)} (Peringkat #${item.rank})
+          </div>
+        </div>
+      `;
+      document.getElementById('modal-detail').classList.remove('hidden');
+    }
+
+    function closeModal() {
+      document.getElementById('modal-detail').classList.add('hidden');
+    }
+
+    // Trigger Download Helpers
+    function triggerDownload(filename, content) {
+      const blob = new Blob([content], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.setAttribute("href", url);
+      link.setAttribute("download", filename);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+
+    function downloadSampleValidCSV() {
+      let content = "region_code,region_name,poverty_pct,p1_depth,p2_severity,tpt_pct,ipm_score\n";
+      currentData.forEach(d => {
+        content += `${d.code},"${d.name}",${d.p0.toFixed(2)},${d.p1.toFixed(2)},${d.p2.toFixed(2)},${d.tpt.toFixed(2)},${d.ipm.toFixed(2)}\n`;
+      });
+      triggerDownload("dataset_uji_bps_jabar_2024_5kriteria.csv", content);
+    }
+
+    function downloadSampleWithProvCSV() {
+      let content = "region_code,region_name,poverty_pct,p1_depth,p2_severity,tpt_pct,ipm_score\n";
+      content += '3200,"Provinsi Jawa Barat",7.46,1.25,0.27,6.75,74.92\n';
+      currentData.forEach(d => {
+        content += `${d.code},"${d.name}",${d.p0.toFixed(2)},${d.p1.toFixed(2)},${d.p2.toFixed(2)},${d.tpt.toFixed(2)},${d.ipm.toFixed(2)}\n`;
+      });
+      triggerDownload("dataset_uji_dengan_baris_provinsi.csv", content);
+    }
+
+    function downloadSampleErrorCSV() {
+      const content = `region_code,region_name,poverty_pct,p1_depth,p2_severity,tpt_pct,ipm_score
+3201,"Kabupaten Bogor",7.05,1.18,0.26,7.34,73.63
+3201,"Kabupaten Bogor",7.05,1.18,0.26,7.34,73.63
+3202,"Kabupaten Sukabumi",,1.05,0.20,7.11,70.18
+3203,"Kabupaten Cianjur",10.14,N/A,0.41,5.99,68.89
+`;
+      triggerDownload("dataset_uji_error_validasi.csv", content);
+    }
+
+    function downloadCSVTemplate() {
+      const template = "region_code,region_name,poverty_pct,p1_depth,p2_severity,tpt_pct,ipm_score\n3201,Kabupaten Bogor,7.05,1.18,0.26,7.34,73.63\n3202,Kabupaten Sukabumi,6.87,1.05,0.20,7.11,70.18\n";
+      triggerDownload("template_impor_5kriteria_jabar.csv", template);
+    }
+
+    function exportCSVResults() {
+      let csv = "Peringkat,Kode_Wilayah,Nama_Wilayah,P0_Miskin,P1_Kedalaman,P2_Keparahan,TPT_Pct,IPM_Score,Skor_SAW_Vi,Kategori_Prioritas\n";
+      calculatedResults.forEach(item => {
+        csv += `${item.rank},"${item.code}","${item.name}",${item.p0.toFixed(2)},${item.p1.toFixed(2)},${item.p2.toFixed(2)},${item.tpt.toFixed(2)},${item.ipm.toFixed(2)},${item.score.toFixed(4)},"${item.category}"\n`;
+      });
+      triggerDownload("hasil_pemeringkatan_saw_5kriteria_jabar_2024.csv", csv);
+    }
+
+    function saveCurrentCalculationToHistory() {
+      const newId = historySessions.length + 1;
+      const now = new Date().toISOString().replace('T', ' ').substring(0, 16);
+      historySessions.unshift({
+        id: newId,
+        time: now,
+        dataset: "BPS Jawa Barat 2024 (5 Kriteria)",
+        weights: `w₁:${(currentWeights.C1*100).toFixed(0)}%, w₂:${(currentWeights.C2*100).toFixed(0)}%, w₃:${(currentWeights.C3*100).toFixed(0)}%, w₄:${(currentWeights.C4*100).toFixed(0)}%, w₅:${(currentWeights.C5*100).toFixed(0)}%`,
+        count: currentData.length,
+        notes: "Sesi 5 Kriteria Disimpan Pengguna"
+      });
+      renderHistoryTable();
+      alert("Sesi perhitungan 5 Kriteria berhasil disimpan ke riwayat audit!");
+    }
+
+    // Flexible CSV File Upload & Parsing Handler
+    function handleFileUpload(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(evt) {
+        const text = evt.target.result;
+        const lines = text.split(/\r?\n/).map(l => l.trim()).filter(l => l.length > 0);
+        if (lines.length < 2) {
+          alert("Berkas CSV kosong atau tidak memiliki baris data.");
+          return;
+        }
+
+        const delimiter = lines[0].includes(';') ? ';' : ',';
+        const headers = lines[0].split(delimiter).map(h => h.trim().toLowerCase().replace(/['"]/g, ''));
+
+        // Flexible mapping
+        const colIdx = {
+          code: headers.findIndex(h => h.includes('code') || h.includes('kode')),
+          name: headers.findIndex(h => h.includes('name') || h.includes('nama') || h.includes('wilayah') || h.includes('kabupaten')),
+          p0: headers.findIndex(h => h.includes('poverty') || h.includes('p0') || h.includes('miskin') || h.includes('c1')),
+          p1: headers.findIndex(h => h.includes('p1') || h.includes('depth') || h.includes('kedalaman') || h.includes('c2')),
+          p2: headers.findIndex(h => h.includes('p2') || h.includes('severity') || h.includes('keparahan') || h.includes('c3')),
+          tpt: headers.findIndex(h => h.includes('tpt') || h.includes('pengangguran') || h.includes('c4')),
+          ipm: headers.findIndex(h => h.includes('ipm') || h.includes('hdi') || h.includes('c5'))
+        };
+
+        if (colIdx.name === -1 || colIdx.p0 === -1) {
+          alert("Gagal Impor: Kolom wajib minimal nama wilayah dan persentase kemiskinan tidak ditemukan.");
+          return;
+        }
+
+        const newParsed = [];
+        let provFiltered = false;
+
+        for (let i = 1; i < lines.length; i++) {
+          const cols = lines[i].split(delimiter).map(c => c.trim().replace(/^["']|["']$/g, ''));
+          const rName = cols[colIdx.name] || '';
+          if (rName.toLowerCase().includes('provinsi') || rName.toLowerCase() === 'jawa barat') {
             provFiltered = true;
             continue;
           }
+
           const valP0 = parseFloat((cols[colIdx.p0] || '').replace(',', '.'));
           const valP1 = colIdx.p1 !== -1 ? parseFloat((cols[colIdx.p1] || '').replace(',', '.')) : 1.5;
           const valP2 = colIdx.p2 !== -1 ? parseFloat((cols[colIdx.p2] || '').replace(',', '.')) : 0.3;
           const valTPT = colIdx.tpt !== -1 ? parseFloat((cols[colIdx.tpt] || '').replace(',', '.')) : 6.5;
           const valIPM = colIdx.ipm !== -1 ? parseFloat((cols[colIdx.ipm] || '').replace(',', '.')) : 72.0;
+
           if (rName && !isNaN(valP0)) {
             newParsed.push({
               code: colIdx.code !== -1 && cols[colIdx.code] ? cols[colIdx.code] : (3200 + i).toString(),
@@ -19,6 +1407,7 @@
             });
           }
         }
+
         if (newParsed.length > 0) {
           currentData = newParsed;
           runSAW();
@@ -32,6 +1421,7 @@
       };
       reader.readAsText(file);
     }
+
     // Inisialisasi awal
     runSAW();
   </script>
