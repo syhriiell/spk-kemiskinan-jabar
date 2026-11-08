@@ -6,6 +6,8 @@
   <title>SPK Prioritas Kemiskinan Jawa Barat — Modern Government Analytics (5 Kriteria BPS)</title>
   <!-- Official Tailwind CSS CDN (Standar Akademik & Industri) -->
   <script src="https://cdn.tailwindcss.com"></script>
+  <!-- SheetJS Library untuk membaca berkas Excel (.XLSX) dan CSV resmi BPS / Open Data Jabar -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
   <style>
     body {
       font-family: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
@@ -407,18 +409,55 @@
             </p>
           </div>
 
-          <!-- Drag and Drop Box -->
+          <!-- Drag and Drop Box (Mendukung CSV & XLSX Excel) -->
           <div id="dropzone" class="border-2 border-dashed border-slate-300 hover:border-[#159B78] rounded-xl p-8 text-center bg-slate-50/60 transition cursor-pointer">
-            <input type="file" id="file-input" accept=".csv" class="hidden" onchange="handleFileUpload(event)">
+            <input type="file" id="file-input" accept=".csv, .xlsx, .xls" class="hidden" onchange="handleFileUpload(event)">
             <div class="w-12 h-12 rounded-full bg-emerald-50 text-[#159B78] flex items-center justify-center mx-auto mb-3">
               <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/></svg>
             </div>
             <div class="text-xs font-semibold text-[#1E293B]">
-              Tarik dan lepaskan berkas CSV ke sini, atau <button onclick="document.getElementById('file-input').click()" class="text-[#245B83] hover:text-[#159B78] underline font-bold">pilih dari komputer</button>
+              Tarik dan lepaskan berkas <strong class="text-[#245B83]">CSV</strong> atau <strong class="text-[#159B78]">Excel (.XLSX)</strong> ke sini, atau <button onclick="document.getElementById('file-input').click()" class="text-[#245B83] hover:text-[#159B78] underline font-bold">pilih dari komputer</button>
             </div>
             <p class="text-[11px] text-[#64748B] mt-1">
-              Mendukung kolom 5 Kriteria BPS: <code>region_name, poverty_pct, p1_depth, p2_severity, tpt_pct, ipm_score</code>
+              Mendukung berkas resmi <strong>Open Data Jabar</strong> & <strong>BPS</strong> (Format Multi-Indikator 5 Kriteria maupun Berkas Mentah Single-Indikator P₀, P₁, P₂, TPT, IPM).
             </p>
+          </div>
+
+          <!-- Portal Resmi BPS & Open Data Jabar (Untuk Diuji Langsung oleh Dosen) -->
+          <div class="p-4 bg-emerald-50/70 border border-emerald-200 rounded-xl space-y-3">
+            <div class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-[#159B78]"></span>
+              <span class="font-bold text-xs text-emerald-900 uppercase tracking-wider">Tautan Portal Resmi Open Data Jabar & BPS (Bisa Diunduh Langsung di Depan Dosen):</span>
+            </div>
+            <p class="text-[11px] text-emerald-800 leading-relaxed">
+              Dosen atau penguji dapat langsung membuka portal resmi di bawah, mengklik tombol <strong>Unduh Data (Excel .XLSX / CSV)</strong>, lalu memasukkan berkas mentah tersebut ke kotak di atas tanpa perlu diedit. Sistem otomatis menyaring tahun terbaru (2024) dan memutakhirkan 27 Kabupaten/Kota:
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-2 text-xs">
+              <a href="https://opendata.jabarprov.go.id/id/dataset/indeks-keparahan-kemiskinan-berdasarkan-kabupatenkota-di-jawa-barat" target="_blank" rel="noopener" class="flex items-center justify-between p-2.5 bg-white border border-emerald-300 rounded-lg hover:bg-emerald-100/50 transition group">
+                <span class="font-medium text-[#172B4D] group-hover:text-[#159B78]">1. Open Data Jabar: Indeks Keparahan (P₂)</span>
+                <span class="text-[10px] text-[#159B78] font-bold">Buka Portal ↗</span>
+              </a>
+              <a href="https://opendata.jabarprov.go.id/id/dataset/persentase-penduduk-miskin-berdasarkan-kabupatenkota-di-jawa-barat" target="_blank" rel="noopener" class="flex items-center justify-between p-2.5 bg-white border border-emerald-300 rounded-lg hover:bg-emerald-100/50 transition group">
+                <span class="font-medium text-[#172B4D] group-hover:text-[#159B78]">2. Open Data Jabar: Persentase Miskin (P₀)</span>
+                <span class="text-[10px] text-[#159B78] font-bold">Buka Portal ↗</span>
+              </a>
+              <a href="https://opendata.jabarprov.go.id/id/dataset/indeks-kedalaman-kemiskinan-berdasarkan-kabupatenkota-di-jawa-barat" target="_blank" rel="noopener" class="flex items-center justify-between p-2.5 bg-white border border-emerald-300 rounded-lg hover:bg-emerald-100/50 transition group">
+                <span class="font-medium text-[#172B4D] group-hover:text-[#159B78]">3. Open Data Jabar: Indeks Kedalaman (P₁)</span>
+                <span class="text-[10px] text-[#159B78] font-bold">Buka Portal ↗</span>
+              </a>
+              <a href="https://opendata.jabarprov.go.id/id/dataset/tingkat-pengangguran-terbuka-tpt-berdasarkan-kabupatenkota-di-jawa-barat" target="_blank" rel="noopener" class="flex items-center justify-between p-2.5 bg-white border border-emerald-300 rounded-lg hover:bg-emerald-100/50 transition group">
+                <span class="font-medium text-[#172B4D] group-hover:text-[#159B78]">4. Open Data Jabar: Pengangguran (TPT)</span>
+                <span class="text-[10px] text-[#159B78] font-bold">Buka Portal ↗</span>
+              </a>
+              <a href="https://opendata.jabarprov.go.id/id/dataset/indeks-pembangunan-manusia-ipm-berdasarkan-kabupatenkota-di-jawa-barat" target="_blank" rel="noopener" class="flex items-center justify-between p-2.5 bg-white border border-emerald-300 rounded-lg hover:bg-emerald-100/50 transition group">
+                <span class="font-medium text-[#172B4D] group-hover:text-[#159B78]">5. Open Data Jabar: IPM Metode Baru</span>
+                <span class="text-[10px] text-[#159B78] font-bold">Buka Portal ↗</span>
+              </a>
+              <a href="https://jabar.bps.go.id" target="_blank" rel="noopener" class="flex items-center justify-between p-2.5 bg-white border border-emerald-300 rounded-lg hover:bg-emerald-100/50 transition group">
+                <span class="font-medium text-[#172B4D] group-hover:text-[#159B78]">6. BPS Jawa Barat: Portal Tabel Dinamis</span>
+                <span class="text-[10px] text-[#159B78] font-bold">Buka Portal ↗</span>
+              </a>
+            </div>
           </div>
 
           <!-- Paket Berkas Pengujian Langsung -->
@@ -1344,82 +1383,208 @@
       alert("Sesi perhitungan 5 Kriteria berhasil disimpan ke riwayat audit!");
     }
 
-    // Flexible CSV File Upload & Parsing Handler
+    // Intelligent File Upload & Parsing Handler (Mendukung Excel .XLSX dan CSV Resmi BPS / Open Data Jabar)
     function handleFileUpload(e) {
       const file = e.target.files[0];
       if (!file) return;
 
+      const fileName = file.name.toLowerCase();
+      const isExcel = fileName.endsWith('.xlsx') || fileName.endsWith('.xls');
+
       const reader = new FileReader();
       reader.onload = function(evt) {
-        const text = evt.target.result;
-        const lines = text.split(/\r?\n/).map(l => l.trim()).filter(l => l.length > 0);
-        if (lines.length < 2) {
-          alert("Berkas CSV kosong atau tidak memiliki baris data.");
-          return;
-        }
+        try {
+          let rows = [];
 
-        const delimiter = lines[0].includes(';') ? ';' : ',';
-        const headers = lines[0].split(delimiter).map(h => h.trim().toLowerCase().replace(/['"]/g, ''));
-
-        // Flexible mapping
-        const colIdx = {
-          code: headers.findIndex(h => h.includes('code') || h.includes('kode')),
-          name: headers.findIndex(h => h.includes('name') || h.includes('nama') || h.includes('wilayah') || h.includes('kabupaten')),
-          p0: headers.findIndex(h => h.includes('poverty') || h.includes('p0') || h.includes('miskin') || h.includes('c1')),
-          p1: headers.findIndex(h => h.includes('p1') || h.includes('depth') || h.includes('kedalaman') || h.includes('c2')),
-          p2: headers.findIndex(h => h.includes('p2') || h.includes('severity') || h.includes('keparahan') || h.includes('c3')),
-          tpt: headers.findIndex(h => h.includes('tpt') || h.includes('pengangguran') || h.includes('c4')),
-          ipm: headers.findIndex(h => h.includes('ipm') || h.includes('hdi') || h.includes('c5'))
-        };
-
-        if (colIdx.name === -1 || colIdx.p0 === -1) {
-          alert("Gagal Impor: Kolom wajib minimal nama wilayah dan persentase kemiskinan tidak ditemukan.");
-          return;
-        }
-
-        const newParsed = [];
-        let provFiltered = false;
-
-        for (let i = 1; i < lines.length; i++) {
-          const cols = lines[i].split(delimiter).map(c => c.trim().replace(/^["']|["']$/g, ''));
-          const rName = cols[colIdx.name] || '';
-          if (rName.toLowerCase().includes('provinsi') || rName.toLowerCase() === 'jawa barat') {
-            provFiltered = true;
-            continue;
+          if (isExcel) {
+            if (typeof XLSX === 'undefined') {
+              alert("Modul pembaca Excel sedang diinisialisasi, silakan coba unggah beberapa detik lagi.");
+              return;
+            }
+            const data = new Uint8Array(evt.target.result);
+            const workbook = XLSX.read(data, { type: 'array' });
+            const firstSheetName = workbook.SheetNames[0];
+            const worksheet = workbook.Sheets[firstSheetName];
+            rows = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+          } else {
+            // Berkas CSV
+            const text = evt.target.result;
+            const lines = text.split(/\r?\n/).map(l => l.trim()).filter(l => l.length > 0);
+            const delimiter = lines[0].includes(';') ? ';' : ',';
+            rows = lines.map(line => line.split(delimiter).map(c => c.trim().replace(/^["']|["']$/g, '')));
           }
 
-          const valP0 = parseFloat((cols[colIdx.p0] || '').replace(',', '.'));
-          const valP1 = colIdx.p1 !== -1 ? parseFloat((cols[colIdx.p1] || '').replace(',', '.')) : 1.5;
-          const valP2 = colIdx.p2 !== -1 ? parseFloat((cols[colIdx.p2] || '').replace(',', '.')) : 0.3;
-          const valTPT = colIdx.tpt !== -1 ? parseFloat((cols[colIdx.tpt] || '').replace(',', '.')) : 6.5;
-          const valIPM = colIdx.ipm !== -1 ? parseFloat((cols[colIdx.ipm] || '').replace(',', '.')) : 72.0;
-
-          if (rName && !isNaN(valP0)) {
-            newParsed.push({
-              code: colIdx.code !== -1 && cols[colIdx.code] ? cols[colIdx.code] : (3200 + i).toString(),
-              name: rName,
-              type: rName.toLowerCase().includes('kota') ? 'Kota' : 'Kabupaten',
-              p0: valP0,
-              p1: !isNaN(valP1) ? valP1 : 1.5,
-              p2: !isNaN(valP2) ? valP2 : 0.3,
-              tpt: !isNaN(valTPT) ? valTPT : 6.5,
-              ipm: !isNaN(valIPM) ? valIPM : 72.0
-            });
-          }
-        }
-
-        if (newParsed.length > 0) {
-          currentData = newParsed;
-          runSAW();
-          let msg = `Berhasil mengimpor ${newParsed.length} wilayah ke dalam sistem!`;
-          if (provFiltered) msg += " (Baris agregat Provinsi Jawa Barat otomatis difilter).";
-          alert(msg);
-          switchPage('regions');
-        } else {
-          alert("Tidak ada baris data valid yang berhasil dibaca.");
+          processParsedRows(rows, file.name);
+        } catch (err) {
+          console.error("Error parsing file:", err);
+          alert("Gagal membaca berkas: " + err.message);
         }
       };
-      reader.readAsText(file);
+
+      if (isExcel) {
+        reader.readAsArrayBuffer(file);
+      } else {
+        reader.readAsText(file);
+      }
+    }
+
+    // Engine Pemrosesan Baris Data (Cerdas menyaring tahun 2024 & multi/single indikator)
+    function processParsedRows(rows, fileName) {
+      if (!rows || rows.length < 2) {
+        alert("Berkas kosong atau tidak memiliki baris data yang cukup.");
+        return;
+      }
+
+      // Ambil Header baris pertama
+      const headers = rows[0].map(h => (h !== undefined && h !== null ? String(h).trim().toLowerCase().replace(/['"]/g, '') : ''));
+
+      // Pemetaan indeks kolom umum
+      const colIdx = {
+        code: headers.findIndex(h => h.includes('kode_kabupaten') || h.includes('code') || h.includes('kode')),
+        name: headers.findIndex(h => h.includes('nama_kabupaten') || h.includes('nama_wilayah') || h.includes('name') || h.includes('wilayah') || h.includes('kabupaten')),
+        year: headers.findIndex(h => h.includes('tahun') || h.includes('year') || h.includes('periode')),
+        p0: headers.findIndex(h => h.includes('persentase_penduduk_miskin') || h.includes('poverty') || h.includes('p0') || (h.includes('miskin') && !h.includes('kedalaman') && !h.includes('keparahan'))),
+        p1: headers.findIndex(h => h.includes('indeks_kedalaman') || h.includes('kedalaman') || h.includes('depth') || h.includes('p1')),
+        p2: headers.findIndex(h => h.includes('indeks_keparahan') || h.includes('keparahan') || h.includes('severity') || h.includes('p2')),
+        tpt: headers.findIndex(h => h.includes('tingkat_pengangguran') || h.includes('tpt') || h.includes('pengangguran') || h.includes('c4')),
+        ipm: headers.findIndex(h => h.includes('indeks_pembangunan') || h.includes('ipm') || h.includes('hdi') || h.includes('c5'))
+      };
+
+      if (colIdx.name === -1) {
+        alert("Gagal Impor: Kolom nama kabupaten/kota tidak ditemukan di dalam berkas.");
+        return;
+      }
+
+      // Tentukan target tahun jika ada kolom 'tahun' (contoh: berkas time-series Open Data Jabar)
+      let targetYear = '2024';
+      if (colIdx.year !== -1) {
+        const foundYears = [];
+        for (let i = 1; i < rows.length; i++) {
+          const y = String(rows[i][colIdx.year] || '').trim();
+          if (y && !isNaN(parseInt(y, 10))) foundYears.push(parseInt(y, 10));
+        }
+        if (foundYears.length > 0) {
+          // Cari tahun 2024 jika ada, atau tahun paling mutakhir
+          if (foundYears.includes(2024)) {
+            targetYear = '2024';
+          } else {
+            targetYear = String(Math.max(...foundYears));
+          }
+        }
+      }
+
+      // Deteksi apakah berkas adalah Single Indikator Resmi (seperti unduhan Open Data Jabar)
+      const hasOnlyP2 = colIdx.p2 !== -1 && colIdx.p0 === -1 && colIdx.tpt === -1 && colIdx.ipm === -1;
+      const hasOnlyP1 = colIdx.p1 !== -1 && colIdx.p0 === -1 && colIdx.tpt === -1 && colIdx.ipm === -1;
+      const hasOnlyP0 = colIdx.p0 !== -1 && colIdx.p2 === -1 && colIdx.p1 === -1 && colIdx.tpt === -1 && colIdx.ipm === -1;
+      const hasOnlyTPT = colIdx.tpt !== -1 && colIdx.p0 === -1 && colIdx.p2 === -1 && colIdx.ipm === -1;
+      const hasOnlyIPM = colIdx.ipm !== -1 && colIdx.p0 === -1 && colIdx.p2 === -1 && colIdx.tpt === -1;
+
+      if (hasOnlyP2 || hasOnlyP1 || hasOnlyP0 || hasOnlyTPT || hasOnlyIPM) {
+        let indicatorTitle = '';
+        let matchedCount = 0;
+
+        for (let i = 1; i < rows.length; i++) {
+          const row = rows[i];
+          if (!row || row.length === 0) continue;
+
+          // Saring tahun jika ada kolom tahun
+          if (colIdx.year !== -1) {
+            const rowYear = String(row[colIdx.year] || '').trim();
+            if (rowYear !== targetYear) continue;
+          }
+
+          const rawName = String(row[colIdx.name] || '').trim();
+          if (!rawName || rawName.toLowerCase().includes('provinsi') || rawName.toLowerCase() === 'jawa barat') continue;
+
+          // Normalisasi nama wilayah untuk pencocokan 27 Kabupaten/Kota
+          const cleanName = rawName.toLowerCase().replace(/^(kabupaten|kota)\s+/i, '').trim();
+          const target = currentData.find(d => {
+            const currentClean = d.name.toLowerCase().replace(/^(kabupaten|kota)\s+/i, '').trim();
+            return currentClean === cleanName || d.name.toLowerCase() === rawName.toLowerCase();
+          });
+
+          if (target) {
+            if (hasOnlyP2) {
+              const val = parseFloat(String(row[colIdx.p2]).replace(',', '.'));
+              if (!isNaN(val)) { target.p2 = val; indicatorTitle = 'Indeks Keparahan Kemiskinan (P₂)'; matchedCount++; }
+            } else if (hasOnlyP1) {
+              const val = parseFloat(String(row[colIdx.p1]).replace(',', '.'));
+              if (!isNaN(val)) { target.p1 = val; indicatorTitle = 'Indeks Kedalaman Kemiskinan (P₁)'; matchedCount++; }
+            } else if (hasOnlyP0) {
+              const val = parseFloat(String(row[colIdx.p0]).replace(',', '.'));
+              if (!isNaN(val)) { target.p0 = val; indicatorTitle = 'Persentase Penduduk Miskin (P₀)'; matchedCount++; }
+            } else if (hasOnlyTPT) {
+              const val = parseFloat(String(row[colIdx.tpt]).replace(',', '.'));
+              if (!isNaN(val)) { target.tpt = val; indicatorTitle = 'Tingkat Pengangguran Terbuka (TPT)'; matchedCount++; }
+            } else if (hasOnlyIPM) {
+              const val = parseFloat(String(row[colIdx.ipm]).replace(',', '.'));
+              if (!isNaN(val)) { target.ipm = val; indicatorTitle = 'Indeks Pembangunan Manusia (IPM)'; matchedCount++; }
+            }
+          }
+        }
+
+        if (matchedCount > 0) {
+          runSAW();
+          alert(`✅ BERHASIL MEMBACA DATA RESMI OPEN DATA JABAR / BPS!\n\n• Indikator: ${indicatorTitle}\n• Tahun yang disaring: ${targetYear}\n• Wilayah terverifikasi: ${matchedCount} Kabupaten/Kota\n\nSkor dan pemeringkatan SAW langsung diperbarui otomatis berdasarkan data resmi ini.`);
+          switchPage('regions');
+          return;
+        } else {
+          alert(`Gagal mencocokkan wilayah untuk tahun ${targetYear}.`);
+          return;
+        }
+      }
+
+      // Kasus Multi-Indikator (Dataset Lengkap 5 atau 3 Kriteria)
+      const newParsed = [];
+      let provFiltered = false;
+
+      for (let i = 1; i < rows.length; i++) {
+        const cols = rows[i];
+        if (!cols || cols.length === 0) continue;
+
+        // Saring tahun jika ada
+        if (colIdx.year !== -1) {
+          const rowYear = String(cols[colIdx.year] || '').trim();
+          if (rowYear && rowYear !== targetYear) continue;
+        }
+
+        const rName = String(cols[colIdx.name] || '').trim();
+        if (rName.toLowerCase().includes('provinsi') || rName.toLowerCase() === 'jawa barat') {
+          provFiltered = true;
+          continue;
+        }
+
+        const valP0 = colIdx.p0 !== -1 ? parseFloat(String(cols[colIdx.p0] || '').replace(',', '.')) : 7.5;
+        const valP1 = colIdx.p1 !== -1 ? parseFloat(String(cols[colIdx.p1] || '').replace(',', '.')) : 1.3;
+        const valP2 = colIdx.p2 !== -1 ? parseFloat(String(cols[colIdx.p2] || '').replace(',', '.')) : 0.28;
+        const valTPT = colIdx.tpt !== -1 ? parseFloat(String(cols[colIdx.tpt] || '').replace(',', '.')) : 6.75;
+        const valIPM = colIdx.ipm !== -1 ? parseFloat(String(cols[colIdx.ipm] || '').replace(',', '.')) : 74.5;
+
+        if (rName && !isNaN(valP0)) {
+          newParsed.push({
+            code: colIdx.code !== -1 && cols[colIdx.code] ? String(cols[colIdx.code]).trim() : (3200 + i).toString(),
+            name: rName,
+            type: rName.toLowerCase().includes('kota') ? 'Kota' : 'Kabupaten',
+            p0: !isNaN(valP0) ? valP0 : 7.5,
+            p1: !isNaN(valP1) ? valP1 : 1.3,
+            p2: !isNaN(valP2) ? valP2 : 0.28,
+            tpt: !isNaN(valTPT) ? valTPT : 6.75,
+            ipm: !isNaN(valIPM) ? valIPM : 74.5
+          });
+        }
+      }
+
+      if (newParsed.length > 0) {
+        currentData = newParsed;
+        runSAW();
+        let msg = `✅ Berhasil mengimpor ${newParsed.length} wilayah ke dalam sistem!`;
+        if (provFiltered) msg += "\n(Baris agregat 'Provinsi Jawa Barat' otomatis difilter sesuai PRD).";
+        alert(msg);
+        switchPage('regions');
+      } else {
+        alert("Tidak ada baris data valid yang berhasil dibaca.");
+      }
     }
 
     // Inisialisasi awal
