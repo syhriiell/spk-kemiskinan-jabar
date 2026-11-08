@@ -1500,7 +1500,7 @@
           // Normalisasi nama wilayah untuk pencocokan 27 Kabupaten/Kota
           const cleanName = rawName.toLowerCase().replace(/^(kabupaten|kota)\s+/i, '').trim();
           const target = currentData.find(d => {
-            if (rawCode && d.code === rawCode) return true;
+            if (rawCode && String(d.code) === String(rawCode)) return true;
             const currentClean = d.name.toLowerCase().replace(/^(kabupaten|kota)\s+/i, '').trim();
             return currentClean === cleanName || d.name.toLowerCase() === rawName.toLowerCase();
           });
